@@ -1,0 +1,1112 @@
+{
+  "contract_set": {
+    "evaluated_against": [
+      "hep.atlas_open_data.background_estimate",
+      "hep.atlas_open_data.cutflow_monotonic",
+      "hep.atlas_open_data.histogram_closure",
+      "hep.atlas_open_data.normalization_provenance",
+      "hep.atlas_open_data.region_coverage",
+      "hep.atlas_open_data.region_definition",
+      "hep.atlas_open_data.region_disjoint",
+      "hep.atlas_open_data.source_constants",
+      "hep.atlas_open_data.weight_provenance",
+      "hep.atlas_open_data.yield_closure",
+      "hep.atlas_open_data.yield_shape",
+      "hep.selection.nonempty"
+    ],
+    "excluded": []
+  },
+  "tally": {
+    "A": {
+      "pending": 5,
+      "rejected_not_novel": 6
+    },
+    "B": {
+      "pending": 10,
+      "rejected_not_expressible": 1,
+      "rejected_not_novel": 21,
+      "rejected_not_scientific": 1
+    }
+  },
+  "conditions": {
+    "A": [
+      {
+        "candidate_id": "round2-yield_estimate-0",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`background_estimate` must equal `sideband_weight_sum * signal_bin_count / sideband_bin_count`: `1613.6540816187858 == 8068.270408093929 * 5 / 25`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.background_estimate"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "background_from_sidebands",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-1",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`estimated_yield` must equal `(signal_weight_sum - background_estimate) * normalization_factor`: `7.472601895023162 == (82382.99495381117 - 1613.6540816187858) * 9.251780210572279e-05`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_closure"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "yield_closure",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-2",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`signal_window_gev[0] < signal_window_gev[1]` must hold: `120.0 < 130.0`.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": {
+          "violating_artifact_summary": "signal_window_gev[0] < signal_window_gev[1]",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [],
+          "accepted_by_current_contracts": true
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "window_ordered",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-3",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`peak_bin_center_gev` must lie inside `signal_window_gev`: `120.0 <= 125.0 <= 130.0`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "signal_window_gev[0] <= peak_bin_center_gev <= signal_window_gev[1]",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_shape"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "peak_inside_window",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-4",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`signal_bin_count`, `sideband_bin_count`, and `peak_bin_index` must be integers with `signal_bin_count > 0`, `sideband_bin_count > 0`, and `peak_bin_index >= 0`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "signal_bin_count > 0, sideband_bin_count > 0, peak_bin_index >= 0",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.background_estimate"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "bin_counts_positive",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-5",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`normalization_factor` must be finite and positive, and all numeric fields must be finite, not NaN/inf.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "normalization_factor is finite and positive",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "normalization_finite_positive",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-6",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `signal_weight_sum` requires the per-bin weight sums over the five bins inside `signal_window_gev`; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's per-bin weight sums inside the window",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-7",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `sideband_weight_sum` requires the per-bin weight sums over the 25 chosen sideband bins; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's per-bin weight sums over the sideband bins",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-8",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `normalization_factor` requires the underlying luminosity, cross-section, or normalization inputs; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "normalization_factor == cross_section_pb * luminosity / generated_weight_sum, with the cross-section and generated weight sum taken from the verified source rather than the artifact",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "normalization_from_source",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-9",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Verifying `peak_bin_index` requires the histogram bin edges or equivalent bin mapping for `diphoton_mass_gev`; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's bin edges",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-10",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Verifying `signal_bin_count` and `sideband_bin_count` requires the actual signal-window and sideband bin definitions, including bin widths, not just the counts.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's bin edges and window definition",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      }
+    ],
+    "B": [
+      {
+        "candidate_id": "round2-selection-0",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`cutflow.surviving` must be non-increasing: `all_events >= two_photons >= leading_photon_pt >= subleading_photon_pt`, i.e. `113765 >= 113765 >= 113210 >= 105503`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "cutflow surviving counts are non-increasing",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.cutflow_monotonic"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "cutflow_monotonic",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-1",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`input_event_ids.count` must equal `cutflow[all_events].surviving`: `113765 == 113765`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "cutflow[0].surviving == len(input_event_ids)",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.cutflow_monotonic"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "cutflow_head_matches_input",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-2",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`cutflow[subleading_photon_pt].surviving` must equal `selected_event_ids.count`: `105503 == 105503`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "cutflow[-1].surviving == len(selected_event_ids)",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.cutflow_monotonic"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "cutflow_tail_matches_selected",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-3",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`selected_event_ids.count`, `selected_mass_gev.count`, and `selected_weight.count` must all be equal: `105503 == 105503 == 105503`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "len(selected_event_ids) == len(selected_mass_gev) == len(selected_weight)",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.weight_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "selected_sequences_same_length",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-4",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`selected_event_ids.count` must be `<= input_event_ids.count`: `105503 <= 113765`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "cutflow[0].surviving == len(input_event_ids)",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.cutflow_monotonic"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "cutflow_head_matches_input",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-5",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`regions.control.count + regions.signal.count` must equal `selected_event_ids.count`: `10768 + 94735 == 105503`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "len(regions.signal) + len(regions.control) == len(selected_event_ids)",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.region_coverage"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "region_counts_partition_selected",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-6",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`selected_event_ids.minimum` and `selected_event_ids.maximum` must lie inside `input_event_ids.minimum` and `input_event_ids.maximum`: `3 >= 3` and `250000 <= 250000`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "selected_ids_within_input_range",
+          "decidable_at_this_stage": true,
+          "enforced_by": "accessor precondition, not a contract",
+          "reason": "selected event identifiers must be a subset of input event identifiers"
+        }
+      },
+      {
+        "candidate_id": "round2-selection-7",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "Each region's ID range must lie inside the selected ID range: control `[169, 249952]` and signal `[3, 250000]` are within selected `[3, 250000]`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "every region member appears in selected_event_ids",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "region_ids_are_selected_ids",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-8",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "Every `first_5` and `last_5` value in each sequence summary must lie within that summary's stated `minimum` and `maximum`.",
+        "kind": null,
+        "outcome": "rejected_not_expressible",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "reason": "about the sequence summaries this round put in front of the reviewer, not about the analysis. The summaries are built by taking min, max and slices of the values they replace, so the property holds by construction and cannot be violated by any run."
+        }
+      },
+      {
+        "candidate_id": "round2-selection-9",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`selected_weight_sum` must satisfy `selected_weight.minimum * selected_weight.count <= selected_weight_sum <= selected_weight.maximum * selected_weight.count`: `-0.8768905997276306 * 105503 <= 91725.38740330935 <= 0.8768905997276306 * 105503`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "min(selected_weight) * n <= selected_weight_sum <= max(selected_weight) * n",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.weight_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "weight_sum_within_reach",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-10",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`selected_mass_gev.minimum` must be `>= 0`, and `selected_mass_gev.maximum` must be `> selected_mass_gev.minimum`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "every selected_mass_gev is nonnegative",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.region_definition"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "masses_nonnegative",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-11",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`cross_section_pb` must be `> 0`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "cross_section_pb > 0",
+          "contracts_evaluated": [
+            "hep.selection.nonempty",
+            "hep.atlas_open_data.cutflow_monotonic",
+            "hep.atlas_open_data.region_disjoint",
+            "hep.atlas_open_data.region_coverage",
+            "hep.atlas_open_data.region_definition",
+            "hep.atlas_open_data.weight_provenance",
+            "hep.atlas_open_data.source_constants"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.source_constants"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "cross_section_positive",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-selection-12",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "`cross_section_pb` and `generated_weight_sum` cannot be verified against the other fields from this artifact alone; they require external generator/luminosity metadata.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "generator metadata outside the workflow",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-selection-13",
+        "round_index": 2,
+        "artifact_reviewed": "selection",
+        "stage": "post_selection",
+        "objection": "The five-element summaries cannot verify full event-ID uniqueness, exact subset/partition membership, or per-event correspondence among `selected_event_ids`, `selected_mass_gev`, and `selected_weight`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "selected_ids_unique",
+          "decidable_at_this_stage": true,
+          "enforced_by": "accessor precondition, not a contract",
+          "reason": "selection selected_event_ids must not contain duplicate event identifiers"
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-0",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "Check that `len(bin_edges) == len(bin_counts) + 1` and `len(bin_counts) == len(bin_weight_sums)`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "len(bin_edges) == len(bin_counts) + 1 == len(bin_weight_sums) + 1",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "edge_and_bin_counts_agree",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-1",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "Check that `bin_edges` is strictly increasing, e.g. `bin_edges[i] < bin_edges[i+1]` for all adjacent pairs.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": {
+          "violating_artifact_summary": "bin_edges[i] < bin_edges[i + 1] for every adjacent pair",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "contracts_that_fired": [],
+          "accepted_by_current_contracts": true
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "edges_strictly_increasing",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-2",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "Check that all `bin_counts` are nonnegative integers and all numerical fields are finite (no NaN/inf).",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": {
+          "violating_artifact_summary": "every bin_count is a nonnegative integer",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "contracts_that_fired": [],
+          "accepted_by_current_contracts": true
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "bin_counts_nonnegative",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-3",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "Check that `sum(bin_weight_sums) + underflow_weight_sum + overflow_weight_sum` equals `selected_weight_sum` within floating-point tolerance.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "sum(bin_weight_sums) + underflow + overflow == selected_weight_sum",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "histogram_closure",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-4",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "Check that `generated_weight_sum * normalization_factor` equals `cross_section_pb * luminosity_pb_inverse` within floating-point tolerance.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "generated_weight_sum * normalization_factor == cross_section_pb * luminosity_pb_inverse",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.histogram_closure"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "normalization_matches_its_inputs",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-5",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "If nonnegative event weights are expected, check that all `bin_weight_sums`, `underflow_weight_sum`, `overflow_weight_sum`, and `selected_weight_sum` are nonnegative, and that `selected_weight_sum <= generated_weight_sum`.",
+        "kind": null,
+        "outcome": "rejected_not_scientific",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "reason": "conditioned on nonnegative event weights, which this sample does not have: mcWeight takes both signs, so the check it proposes would fail on correct data. Its second clause, selected_weight_sum <= generated_weight_sum, is a separate claim that needs a physicist."
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-6",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "External: these data alone cannot verify that `cross_section_pb`, `luminosity_pb_inverse`, and `generated_weight_sum` are the correct physical inputs; they can be mutually consistent but still wrong.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the source file's cross-section and the run's luminosity",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-histogram-7",
+        "round_index": 2,
+        "artifact_reviewed": "histogram",
+        "stage": "post_histogram",
+        "objection": "External: these data alone cannot verify that `bin_counts` and `bin_weight_sums` correspond to the intended selection and `observable`, or that `bin_edges` is the correct binning for the analysis.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the selection artifact and the analysis configuration",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-0",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`background_estimate` must equal `sideband_weight_sum * signal_bin_count / sideband_bin_count`: `1613.6540816187858 == 8068.270408093929 * 5 / 25`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.background_estimate"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "background_from_sidebands",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-1",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`estimated_yield` must equal `(signal_weight_sum - background_estimate) * normalization_factor`: `7.472601895023162 == (82382.99495381117 - 1613.6540816187858) * 9.251780210572279e-05`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_closure"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "yield_closure",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-2",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`signal_window_gev[0] < signal_window_gev[1]` must hold: `120.0 < 130.0`.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": {
+          "violating_artifact_summary": "signal_window_gev[0] < signal_window_gev[1]",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [],
+          "accepted_by_current_contracts": true
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "window_ordered",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-3",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`peak_bin_center_gev` must lie inside `signal_window_gev`: `120.0 <= 125.0 <= 130.0`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "signal_window_gev[0] <= peak_bin_center_gev <= signal_window_gev[1]",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_shape"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "peak_inside_window",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-4",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`signal_bin_count`, `sideband_bin_count`, and `peak_bin_index` must be integers with `signal_bin_count > 0`, `sideband_bin_count > 0`, and `peak_bin_index >= 0`.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "signal_bin_count > 0, sideband_bin_count > 0, peak_bin_index >= 0",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.background_estimate"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "bin_counts_positive",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-5",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "`normalization_factor` must be finite and positive, and all numeric fields must be finite, not NaN/inf.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "normalization_factor is finite and positive",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "normalization_finite_positive",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-6",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `signal_weight_sum` requires the per-bin weight sums over the five bins inside `signal_window_gev`; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's per-bin weight sums inside the window",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-7",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `sideband_weight_sum` requires the per-bin weight sums over the 25 chosen sideband bins; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's per-bin weight sums over the sideband bins",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-8",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Recomputing `normalization_factor` requires the underlying luminosity, cross-section, or normalization inputs; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "rejected_not_novel",
+        "novelty": {
+          "violating_artifact_summary": "normalization_factor == cross_section_pb * luminosity / generated_weight_sum, with the cross-section and generated weight sum taken from the verified source rather than the artifact",
+          "contracts_evaluated": [
+            "hep.atlas_open_data.yield_shape",
+            "hep.atlas_open_data.yield_closure",
+            "hep.atlas_open_data.background_estimate",
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "contracts_that_fired": [
+            "hep.atlas_open_data.normalization_provenance"
+          ],
+          "accepted_by_current_contracts": false
+        },
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "proposition": "normalization_from_source",
+          "decidable_at_this_stage": true
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-9",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Verifying `peak_bin_index` requires the histogram bin edges or equivalent bin mapping for `diphoton_mass_gev`; these values alone cannot establish it.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's bin edges",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      },
+      {
+        "candidate_id": "round2-yield_estimate-10",
+        "round_index": 2,
+        "artifact_reviewed": "yield_estimate",
+        "stage": "post_yield",
+        "objection": "Verifying `signal_bin_count` and `sideband_bin_count` requires the actual signal-window and sideband bin definitions, including bin widths, not just the counts.",
+        "kind": null,
+        "outcome": "pending",
+        "novelty": null,
+        "confirmation": null,
+        "contract_id": null,
+        "notes": {
+          "decidable_at_this_stage": false,
+          "needs": "the histogram's bin edges and window definition",
+          "reason": "the reviewer named, unprompted, a quantity the final artifact does not carry. Deciding this requires the upstream artifact or its provenance."
+        }
+      }
+    ]
+  }
+}

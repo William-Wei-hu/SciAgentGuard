@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "probe_id": "judge_reproducibility",
+  "generated_at": "2026-08-31T13:21:58.275434Z",
+  "environment": {
+    "sciagentguard_version": "0.4.0.dev1",
+    "python_version": "3.12.14"
+  },
+  "parameters": {
+    "provider": "deepseek",
+    "model_id": "deepseek-v4-pro",
+    "temperature": 0.0,
+    "attempts": 5,
+    "cache": "bypassed; a cache would report perfect determinism whatever the model does"
+  },
+  "artifact_reviewed": "yield_estimate of the correct ATLAS analysis",
+  "attempts": [
+    {
+      "index": 0,
+      "verdict": "INVALID",
+      "latency_ms": 474834.7618339976
+    },
+    {
+      "index": 1,
+      "verdict": "ERROR",
+      "latency_ms": 562473.8156250024
+    },
+    {
+      "index": 2,
+      "verdict": "VALID",
+      "latency_ms": 562478.5809999994
+    },
+    {
+      "index": 3,
+      "verdict": "ERROR",
+      "latency_ms": 601291.0834999966
+    },
+    {
+      "index": 4,
+      "verdict": "VALID",
+      "latency_ms": 1893648.0804999992
+    }
+  ]
+}

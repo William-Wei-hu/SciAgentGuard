@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "discovery_round",
+  "generated_at": "2026-08-31T22:34:29.374051Z",
+  "environment": {
+    "sciagentguard_version": "0.4.0.dev1",
+    "python_version": "3.12.14"
+  },
+  "parameters": {
+    "provider": "deepseek",
+    "model_id": "deepseek-v4-pro",
+    "temperature": 0.0,
+    "round_index": 1,
+    "max_output_tokens": 131072,
+    "sequence_summary_threshold": 32,
+    "sequence_sample_size": 5,
+    "cache_hits": 1,
+    "cache_misses": 2,
+    "contracts_shown_to_reviewer": "none"
+  },
+  "prediction": "Condition A raises objections only about the yield artifact's internal consistency. Condition B additionally raises objections about the cutflow, region membership and weight provenance, because those quantities exist only upstream. If A matches B, the stage-wise claim does not extend from detection to discovery, and that is the honest finding.",
+  "conditions": {
+    "A": {
+      "condition": "A",
+      "description": "end only: the reviewer sees the final artifact and nothing else",
+      "artifacts_shown": [
+        "yield_estimate"
+      ],
+      "targets": [
+        {
+          "artifact_name": "yield_estimate",
+          "stage": "post_yield",
+          "prompt_chars": 1113,
+          "calls": 2,
+          "objections": 0,
+          "latency_ms": 317108.96162500285,
+          "error": null
+        }
+      ],
+      "round": {
+        "round_index": 1,
+        "reviewer": {
+          "provider": "deepseek",
+          "model_id": "deepseek-v4-pro"
+        },
+        "artifacts_reviewed": [
+          "yield_estimate"
+        ],
+        "started_at": "2026-08-31T21:03:32.724022Z",
+        "candidates": [],
+        "schema_version": "1.0"
+      }
+    },
+    "B": {
+      "condition": "B",
+      "description": "stage-wise: the reviewer sees each checkpoint artifact in a separate call",
+      "artifacts_shown": [
+        "selection",
+        "histogram",
+        "yield_estimate"
+      ],
+      "targets": [
+        {
+          "artifact_name": "selection",
+          "stage": "post_selection",
+          "prompt_chars": 3858,
+          "calls": 1,
+          "objections": 0,
+          "latency_ms": 707367.4762500013,
+          "error": null
+        },
+        {
+          "artifact_name": "histogram",
+          "stage": "post_histogram",
+          "prompt_chars": 2344,
+          "calls": 1,
+          "objections": 0,
+          "latency_ms": 662804.386459,
+          "error": null
+        },
+        {
+          "artifact_name": "yield_estimate",
+          "stage": "post_yield",
+          "prompt_chars": 1113,
+          "calls": 1,
+          "objections": 0,
+          "latency_ms": 317108.96162500285,
+          "error": null
+        }
+      ],
+      "round": {
+        "round_index": 1,
+        "reviewer": {
+          "provider": "deepseek",
+          "model_id": "deepseek-v4-pro"
+        },
+        "artifacts_reviewed": [
+          "selection",
+          "histogram",
+          "yield_estimate"
+        ],
+        "started_at": "2026-08-31T22:34:29.373754Z",
+        "candidates": [],
+        "schema_version": "1.0"
+      }
+    }
+  }
+}

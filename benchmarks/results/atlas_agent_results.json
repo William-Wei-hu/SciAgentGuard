@@ -1,0 +1,3055 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "atlas_agent_guarded_comparison",
+  "generated_at": "2026-09-01T00:09:35.094412Z",
+  "provenance": {
+    "source_type": "simulation",
+    "experiment": "ATLAS",
+    "record_id": "atlas-15006",
+    "doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+    "file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+    "checksum": "adler32:5ac6bca3"
+  },
+  "environment": {
+    "sciagentguard_version": "0.4.0.dev1",
+    "python_version": "3.12.14",
+    "python_implementation": "CPython",
+    "numpy_version": "2.2.6",
+    "uproot_version": "5.7.6"
+  },
+  "parameters": {
+    "repetitions": 1,
+    "max_repair_attempts": 2,
+    "sandbox_timeout_seconds": 300,
+    "checkpoint_topology": "four ordered checkpoints: post_load, post_selection, post_histogram, post_yield",
+    "agent_kind": "deterministic scripted agent, no model provider",
+    "judge_kind": "deepseek model, seeing only the final artifact"
+  },
+  "agent": {
+    "source": "sciagentguard.adapters.agent.scripted",
+    "model_id": null,
+    "provider": null
+  },
+  "judge": {
+    "provider": "deepseek",
+    "model_id": "deepseek-v4-pro",
+    "source": "deepseek-judge"
+  },
+  "judge_distinct_questions": 3,
+  "stages": [
+    "post_load",
+    "post_selection",
+    "post_histogram",
+    "post_yield"
+  ],
+  "arms": [
+    "unguarded",
+    "generic_data_checks",
+    "llm_judge",
+    "final_check_only",
+    "runtime_guarded"
+  ],
+  "declared_contract_ids": [
+    "hep.schema.required_branches",
+    "hep.weights.finite",
+    "hep.weights.nonzero_support",
+    "hep.atlas_open_data.diphoton_preselection",
+    "hep.provenance.events_declared",
+    "hep.atlas_open_data.source_identity",
+    "hep.selection.nonempty",
+    "hep.atlas_open_data.cutflow_monotonic",
+    "hep.atlas_open_data.region_disjoint",
+    "hep.atlas_open_data.region_coverage",
+    "hep.atlas_open_data.region_definition",
+    "hep.atlas_open_data.weight_provenance",
+    "hep.atlas_open_data.source_constants",
+    "hep.atlas_open_data.histogram_closure",
+    "hep.atlas_open_data.yield_shape",
+    "hep.atlas_open_data.yield_closure",
+    "hep.atlas_open_data.background_estimate",
+    "hep.atlas_open_data.normalization_provenance"
+  ],
+  "cases": [
+    {
+      "case_id": "correct",
+      "fault_injected": false,
+      "expected_detectable": false,
+      "expected_contract_id": null,
+      "expected_stage": null,
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": true,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "correct-0",
+                "attempt_id": "attempt-0",
+                "stage": "post_yield",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": false,
+                "results": [
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_shape",
+                    "status": "pass",
+                    "evidence": {
+                      "expected_peak_window_gev": [
+                        115.0,
+                        135.0
+                      ],
+                      "peak_bin_center_gev": 125.0,
+                      "peak_in_window": true,
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "has_excess_over_sideband": true,
+                      "all_values_finite": true,
+                      "nonnegative_signal_support": true,
+                      "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                    },
+                    "duration_ms": 0.015084,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_closure",
+                    "status": "pass",
+                    "evidence": {
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "normalization_factor": 0.00009251780210572279,
+                      "reported_yield": 7.472601895023162,
+                      "implied_yield": 7.472601895023162,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                    },
+                    "duration_ms": 0.0045,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.background_estimate",
+                    "status": "pass",
+                    "evidence": {
+                      "reported_background": 1613.6540816187858,
+                      "implied_background": 1613.6540816187858,
+                      "sideband_weight_sum": 8068.270408093929,
+                      "signal_bin_count": 5.0,
+                      "sideband_bin_count": 25.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                    },
+                    "duration_ms": 0.004875,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.normalization_provenance",
+                    "status": "pass",
+                    "evidence": {
+                      "declared_normalization_factor": 0.00009251780210572279,
+                      "source_cross_section_pb": 0.0019654512871056795,
+                      "source_generated_weight_sum": 213799.953125,
+                      "declared_luminosity_pb_inverse": 10064.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                      "implied_normalization_factor": 0.00009251780210572279,
+                      "absolute_gap": 0.0
+                    },
+                    "duration_ms": 0.01975,
+                    "violation": null
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:30.825536Z",
+                "duration_ms": 0.205625,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": true,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "correct-0",
+                "attempt_id": "attempt-0",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": false,
+                "checkpoints": [
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "correct-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_load",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.schema.required_branches",
+                        "status": "pass",
+                        "evidence": {
+                          "required_branches": [
+                            "run_number",
+                            "event_number",
+                            "channel_number",
+                            "weight",
+                            "photon_count",
+                            "photon_pt_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_e_gev",
+                            "cross_section_pb",
+                            "generated_weight_sum"
+                          ],
+                          "available_branches": [
+                            "channel_number",
+                            "cross_section_pb",
+                            "event_number",
+                            "generated_weight_sum",
+                            "photon_count",
+                            "photon_e_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_pt_gev",
+                            "run_number",
+                            "weight"
+                          ],
+                          "missing_branches": []
+                        },
+                        "duration_ms": 0.027875,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.finite",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "nonfinite_count": 0,
+                          "sample_indices": []
+                        },
+                        "duration_ms": 7.742625,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.nonzero_support",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "absolute_weight_sum": 99759.4590780139
+                        },
+                        "duration_ms": 9.477917,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.diphoton_preselection",
+                        "status": "pass",
+                        "evidence": {
+                          "minimum_photons": 2,
+                          "event_count": 113765,
+                          "observed_photon_count_range": [
+                            2,
+                            4
+                          ],
+                          "insufficient_photon_count": 0,
+                          "insufficient_sample_indices": [],
+                          "length_mismatch_count": 0,
+                          "length_mismatch_sample_indices": [],
+                          "nonfinite_momentum_count": 0,
+                          "nonfinite_sample_indices": [],
+                          "negative_momentum_count": 0,
+                          "negative_sample_indices": []
+                        },
+                        "duration_ms": 79.147167,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.provenance.events_declared",
+                        "status": "pass",
+                        "evidence": {
+                          "declaration_present": true,
+                          "source_type_declared": true,
+                          "synthetic_source_declared": false,
+                          "generator_required": false,
+                          "generator_declared": false
+                        },
+                        "duration_ms": 0.00925,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_identity",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_source_type": "simulation",
+                          "expected_record_id": "atlas-15006",
+                          "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+                          "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+                          "expected_checksum": "adler32:5ac6bca3",
+                          "mismatched_fields": []
+                        },
+                        "duration_ms": 0.003875,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:30.923160Z",
+                    "duration_ms": 97.472291,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "correct-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_selection",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.selection.nonempty",
+                        "status": "pass",
+                        "evidence": {
+                          "selection_id": "atlas_gamgam_diphoton",
+                          "selection_stage": "post_selection",
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "minimum_selected": 1
+                        },
+                        "duration_ms": 21.957125,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                        "status": "pass",
+                        "evidence": {
+                          "cut_ids": [
+                            "all_events",
+                            "two_photons",
+                            "leading_photon_pt",
+                            "subleading_photon_pt"
+                          ],
+                          "surviving_counts": [
+                            113765,
+                            113765,
+                            113210,
+                            105503
+                          ],
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "increasing_cuts": [],
+                          "negative_cuts": [],
+                          "first_matches_input": true,
+                          "last_matches_selected": true
+                        },
+                        "duration_ms": 6.993375,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_disjoint",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "region_sizes": [
+                            10768,
+                            94735
+                          ],
+                          "selected_count": 105503,
+                          "overlapping_region_pairs": [],
+                          "overlap_sample_event_ids": [],
+                          "events_outside_selection": 0,
+                          "outside_sample_event_ids": [],
+                          "regions_with_internal_duplicates": []
+                        },
+                        "duration_ms": 14.353292,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_coverage",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "selected_count": 105503,
+                          "covered_count": 105503,
+                          "uncovered_count": 0,
+                          "uncovered_sample_event_ids": [],
+                          "checked_relation": "the union of the declared regions equals the selected events"
+                        },
+                        "duration_ms": 12.886334,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_definition",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_window_gev": [
+                            120.0,
+                            130.0
+                          ],
+                          "expected_signal_count": 94735,
+                          "declared_signal_count": 94735,
+                          "missing_from_signal": 0,
+                          "unexpected_in_signal": 0,
+                          "missing_sample_event_ids": [],
+                          "unexpected_sample_event_ids": [],
+                          "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+                        },
+                        "duration_ms": 17.894916,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.weight_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "selected_count": 105503,
+                          "declared_weight_sum": 91725.38740330935,
+                          "recomputed_weight_sum": 91725.38740330935,
+                          "absolute_gap": 0.0,
+                          "source_weight_abs_min": 0.8768905997276306,
+                          "source_weight_abs_max": 0.8768905997276306,
+                          "source_distinct_weight_count": 2,
+                          "membership_check": "exact membership in the source's distinct weights",
+                          "weights_not_from_source": 0,
+                          "outside_sample_indices": [],
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+                        },
+                        "duration_ms": 40.459375,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_constants",
+                        "status": "pass",
+                        "evidence": {
+                          "artifact": "selection",
+                          "relative_tolerance": 1e-6,
+                          "declared_cross_section_pb": 0.0019654512871056795,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "declared_generated_weight_sum": 213799.953125,
+                          "source_generated_weight_sum": 213799.953125,
+                          "mismatched_constants": []
+                        },
+                        "duration_ms": 0.007,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:31.041455Z",
+                    "duration_ms": 118.27375,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "correct-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_histogram",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.atlas_open_data.histogram_closure",
+                        "status": "pass",
+                        "evidence": {
+                          "bin_count": 30,
+                          "edge_count": 31,
+                          "edges_consistent": true,
+                          "binned_weight_total": 91725.38740330935,
+                          "selected_weight_sum": 91725.38740330935,
+                          "weight_absolute_gap": 0.0,
+                          "relative_tolerance": 1e-6,
+                          "declared_normalization_factor": 0.00009251780210572279,
+                          "recomputed_normalization_factor": 0.00009251780210572279,
+                          "normalization_absolute_gap": 0.0,
+                          "closure_relation": "sum(bin_weight_sums) + underflow + overflow == selected_weight_sum",
+                          "normalization_relation": "cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                          "constants_matching_source": true,
+                          "drifted_constants": []
+                        },
+                        "duration_ms": 0.014542,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:31.041495Z",
+                    "duration_ms": 0.021416,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "correct-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_yield",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.atlas_open_data.yield_shape",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_peak_window_gev": [
+                            115.0,
+                            135.0
+                          ],
+                          "peak_bin_center_gev": 125.0,
+                          "peak_in_window": true,
+                          "signal_weight_sum": 82382.99495381117,
+                          "background_estimate": 1613.6540816187858,
+                          "has_excess_over_sideband": true,
+                          "all_values_finite": true,
+                          "nonnegative_signal_support": true,
+                          "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                        },
+                        "duration_ms": 0.005041,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.yield_closure",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_weight_sum": 82382.99495381117,
+                          "background_estimate": 1613.6540816187858,
+                          "normalization_factor": 0.00009251780210572279,
+                          "reported_yield": 7.472601895023162,
+                          "implied_yield": 7.472601895023162,
+                          "absolute_gap": 0.0,
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                        },
+                        "duration_ms": 0.002041,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.background_estimate",
+                        "status": "pass",
+                        "evidence": {
+                          "reported_background": 1613.6540816187858,
+                          "implied_background": 1613.6540816187858,
+                          "sideband_weight_sum": 8068.270408093929,
+                          "signal_bin_count": 5.0,
+                          "sideband_bin_count": 25.0,
+                          "absolute_gap": 0.0,
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                        },
+                        "duration_ms": 0.002625,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.normalization_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "declared_normalization_factor": 0.00009251780210572279,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "source_generated_weight_sum": 213799.953125,
+                          "declared_luminosity_pb_inverse": 10064.0,
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                          "implied_normalization_factor": 0.00009251780210572279,
+                          "absolute_gap": 0.0
+                        },
+                        "duration_ms": 0.002791,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:31.041525Z",
+                    "duration_ms": 0.024042,
+                    "schema_version": "1.0"
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:31.041531Z",
+                "duration_ms": 215.842875,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            }
+          ]
+        }
+      ],
+      "injection_stage": null,
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "empty_selection",
+      "fault_injected": true,
+      "expected_detectable": true,
+      "expected_contract_id": "hep.selection.nonempty",
+      "expected_stage": "post_selection",
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "empty_selection-0",
+                "attempt_id": "attempt-0",
+                "stage": "post_yield",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "results": [
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_shape",
+                    "status": "fail",
+                    "evidence": {
+                      "expected_peak_window_gev": [
+                        115.0,
+                        135.0
+                      ],
+                      "peak_bin_center_gev": 101.0,
+                      "peak_in_window": false,
+                      "signal_weight_sum": 0.0,
+                      "background_estimate": 0.0,
+                      "has_excess_over_sideband": false,
+                      "all_values_finite": true,
+                      "nonnegative_signal_support": true,
+                      "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                    },
+                    "duration_ms": 0.04325,
+                    "violation": {
+                      "violation_id": "empty_selection-0:attempt-0:hep.atlas_open_data.yield_shape",
+                      "contract_id": "hep.atlas_open_data.yield_shape",
+                      "severity": "error",
+                      "stage": "post_yield",
+                      "message": "The yield estimate does not satisfy its declared shape expectations.",
+                      "evidence": {
+                        "expected_peak_window_gev": [
+                          115.0,
+                          135.0
+                        ],
+                        "peak_bin_center_gev": 101.0,
+                        "peak_in_window": false,
+                        "signal_weight_sum": 0.0,
+                        "background_estimate": 0.0,
+                        "has_excess_over_sideband": false,
+                        "all_values_finite": true,
+                        "nonnegative_signal_support": true,
+                        "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                      },
+                      "likely_causes": [
+                        "The selection or binning moved the peak outside the declared window.",
+                        "The sideband estimate exceeded the signal window content."
+                      ],
+                      "suggested_actions": [
+                        "Inspect the binned distribution and the declared signal window together."
+                      ],
+                      "affected_artifacts": [
+                        "yield_estimate"
+                      ],
+                      "run_id": "empty_selection-0",
+                      "attempt_id": "attempt-0",
+                      "timestamp": "2026-09-01T00:09:31.514734Z",
+                      "schema_version": "1.0"
+                    }
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_closure",
+                    "status": "pass",
+                    "evidence": {
+                      "signal_weight_sum": 0.0,
+                      "background_estimate": 0.0,
+                      "normalization_factor": 0.00009251780210572279,
+                      "reported_yield": 0.0,
+                      "implied_yield": 0.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                    },
+                    "duration_ms": 0.002208,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.background_estimate",
+                    "status": "pass",
+                    "evidence": {
+                      "reported_background": 0.0,
+                      "implied_background": 0.0,
+                      "sideband_weight_sum": 0.0,
+                      "signal_bin_count": 5.0,
+                      "sideband_bin_count": 25.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                    },
+                    "duration_ms": 0.002417,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.normalization_provenance",
+                    "status": "pass",
+                    "evidence": {
+                      "declared_normalization_factor": 0.00009251780210572279,
+                      "source_cross_section_pb": 0.0019654512871056795,
+                      "source_generated_weight_sum": 213799.953125,
+                      "declared_luminosity_pb_inverse": 10064.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                      "implied_normalization_factor": 0.00009251780210572279,
+                      "absolute_gap": 0.0
+                    },
+                    "duration_ms": 0.011375,
+                    "violation": null
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:31.514798Z",
+                "duration_ms": 0.082083,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "empty_selection-0",
+                "attempt_id": "attempt-0",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "checkpoints": [
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "empty_selection-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_load",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.schema.required_branches",
+                        "status": "pass",
+                        "evidence": {
+                          "required_branches": [
+                            "run_number",
+                            "event_number",
+                            "channel_number",
+                            "weight",
+                            "photon_count",
+                            "photon_pt_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_e_gev",
+                            "cross_section_pb",
+                            "generated_weight_sum"
+                          ],
+                          "available_branches": [
+                            "channel_number",
+                            "cross_section_pb",
+                            "event_number",
+                            "generated_weight_sum",
+                            "photon_count",
+                            "photon_e_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_pt_gev",
+                            "run_number",
+                            "weight"
+                          ],
+                          "missing_branches": []
+                        },
+                        "duration_ms": 0.022583,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.finite",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "nonfinite_count": 0,
+                          "sample_indices": []
+                        },
+                        "duration_ms": 7.773041,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.nonzero_support",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "absolute_weight_sum": 99759.4590780139
+                        },
+                        "duration_ms": 9.402792,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.diphoton_preselection",
+                        "status": "pass",
+                        "evidence": {
+                          "minimum_photons": 2,
+                          "event_count": 113765,
+                          "observed_photon_count_range": [
+                            2,
+                            4
+                          ],
+                          "insufficient_photon_count": 0,
+                          "insufficient_sample_indices": [],
+                          "length_mismatch_count": 0,
+                          "length_mismatch_sample_indices": [],
+                          "nonfinite_momentum_count": 0,
+                          "nonfinite_sample_indices": [],
+                          "negative_momentum_count": 0,
+                          "negative_sample_indices": []
+                        },
+                        "duration_ms": 76.566375,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.provenance.events_declared",
+                        "status": "pass",
+                        "evidence": {
+                          "declaration_present": true,
+                          "source_type_declared": true,
+                          "synthetic_source_declared": false,
+                          "generator_required": false,
+                          "generator_declared": false
+                        },
+                        "duration_ms": 0.009584,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_identity",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_source_type": "simulation",
+                          "expected_record_id": "atlas-15006",
+                          "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+                          "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+                          "expected_checksum": "adler32:5ac6bca3",
+                          "mismatched_fields": []
+                        },
+                        "duration_ms": 0.003666,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:31.609621Z",
+                    "duration_ms": 94.805417,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "empty_selection-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_selection",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": true,
+                    "results": [
+                      {
+                        "contract_id": "hep.selection.nonempty",
+                        "status": "fail",
+                        "evidence": {
+                          "selection_id": "atlas_gamgam_diphoton",
+                          "selection_stage": "post_selection",
+                          "input_count": 113765,
+                          "selected_count": 0,
+                          "minimum_selected": 1
+                        },
+                        "duration_ms": 9.438167,
+                        "violation": {
+                          "violation_id": "empty_selection-0:attempt-0:hep.selection.nonempty",
+                          "contract_id": "hep.selection.nonempty",
+                          "severity": "error",
+                          "stage": "post_selection",
+                          "message": "The configured event selection retained no usable events.",
+                          "evidence": {
+                            "selection_id": "atlas_gamgam_diphoton",
+                            "selection_stage": "post_selection",
+                            "input_count": 113765,
+                            "selected_count": 0,
+                            "minimum_selected": 1
+                          },
+                          "likely_causes": [
+                            "A selection threshold or upstream event field changed before this checkpoint."
+                          ],
+                          "suggested_actions": [
+                            "Inspect the declared selection and compare its input and selected counts."
+                          ],
+                          "affected_artifacts": [
+                            "selection"
+                          ],
+                          "run_id": "empty_selection-0",
+                          "attempt_id": "attempt-0",
+                          "timestamp": "2026-09-01T00:09:31.619055Z",
+                          "schema_version": "1.0"
+                        }
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                        "status": "pass",
+                        "evidence": {
+                          "cut_ids": [
+                            "all_events",
+                            "two_photons",
+                            "leading_photon_pt",
+                            "subleading_photon_pt"
+                          ],
+                          "surviving_counts": [
+                            113765,
+                            113765,
+                            113210,
+                            0
+                          ],
+                          "input_count": 113765,
+                          "selected_count": 0,
+                          "increasing_cuts": [],
+                          "negative_cuts": [],
+                          "first_matches_input": true,
+                          "last_matches_selected": true
+                        },
+                        "duration_ms": 3.625791,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_disjoint",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "region_sizes": [
+                            0,
+                            0
+                          ],
+                          "selected_count": 0,
+                          "overlapping_region_pairs": [],
+                          "overlap_sample_event_ids": [],
+                          "events_outside_selection": 0,
+                          "outside_sample_event_ids": [],
+                          "regions_with_internal_duplicates": []
+                        },
+                        "duration_ms": 0.010209,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_coverage",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "selected_count": 0,
+                          "covered_count": 0,
+                          "uncovered_count": 0,
+                          "uncovered_sample_event_ids": [],
+                          "checked_relation": "the union of the declared regions equals the selected events"
+                        },
+                        "duration_ms": 0.00275,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_definition",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_window_gev": [
+                            120.0,
+                            130.0
+                          ],
+                          "expected_signal_count": 0,
+                          "declared_signal_count": 0,
+                          "missing_from_signal": 0,
+                          "unexpected_in_signal": 0,
+                          "missing_sample_event_ids": [],
+                          "unexpected_sample_event_ids": [],
+                          "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+                        },
+                        "duration_ms": 0.0115,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.weight_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "selected_count": 0,
+                          "declared_weight_sum": 0.0,
+                          "recomputed_weight_sum": 0,
+                          "absolute_gap": 0.0,
+                          "source_weight_abs_min": 0.8768905997276306,
+                          "source_weight_abs_max": 0.8768905997276306,
+                          "source_distinct_weight_count": 2,
+                          "membership_check": "exact membership in the source's distinct weights",
+                          "weights_not_from_source": 0,
+                          "outside_sample_indices": [],
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+                        },
+                        "duration_ms": 0.008959,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_constants",
+                        "status": "pass",
+                        "evidence": {
+                          "artifact": "selection",
+                          "relative_tolerance": 1e-6,
+                          "declared_cross_section_pb": 0.0019654512871056795,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "declared_generated_weight_sum": 213799.953125,
+                          "source_generated_weight_sum": 213799.953125,
+                          "mismatched_constants": []
+                        },
+                        "duration_ms": 0.003916,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:31.622837Z",
+                    "duration_ms": 13.194166,
+                    "schema_version": "1.0"
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:31.622850Z",
+                "duration_ms": 108.033208,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            }
+          ]
+        }
+      ],
+      "injection_stage": "post_selection",
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "luminosity_unit_slip",
+      "fault_injected": true,
+      "expected_detectable": true,
+      "expected_contract_id": "hep.atlas_open_data.histogram_closure",
+      "expected_stage": "post_histogram",
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "luminosity_unit_slip-0",
+                "attempt_id": "attempt-0",
+                "stage": "post_yield",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "results": [
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_shape",
+                    "status": "pass",
+                    "evidence": {
+                      "expected_peak_window_gev": [
+                        115.0,
+                        135.0
+                      ],
+                      "peak_bin_center_gev": 125.0,
+                      "peak_in_window": true,
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "has_excess_over_sideband": true,
+                      "all_values_finite": true,
+                      "nonnegative_signal_support": true,
+                      "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                    },
+                    "duration_ms": 0.009875,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_closure",
+                    "status": "pass",
+                    "evidence": {
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "normalization_factor": 9.251780210572279e-8,
+                      "reported_yield": 0.007472601895023162,
+                      "implied_yield": 0.007472601895023162,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                    },
+                    "duration_ms": 0.0025,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.background_estimate",
+                    "status": "pass",
+                    "evidence": {
+                      "reported_background": 1613.6540816187858,
+                      "implied_background": 1613.6540816187858,
+                      "sideband_weight_sum": 8068.270408093929,
+                      "signal_bin_count": 5.0,
+                      "sideband_bin_count": 25.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                    },
+                    "duration_ms": 0.002292,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.normalization_provenance",
+                    "status": "fail",
+                    "evidence": {
+                      "declared_normalization_factor": 9.251780210572279e-8,
+                      "source_cross_section_pb": 0.0019654512871056795,
+                      "source_generated_weight_sum": 213799.953125,
+                      "declared_luminosity_pb_inverse": 10064.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                      "implied_normalization_factor": 0.00009251780210572279,
+                      "absolute_gap": 0.00009242528430361706
+                    },
+                    "duration_ms": 0.030417,
+                    "violation": {
+                      "violation_id": "luminosity_unit_slip-0:attempt-0:hep.atlas_open_data.normalization_provenance",
+                      "contract_id": "hep.atlas_open_data.normalization_provenance",
+                      "severity": "error",
+                      "stage": "post_yield",
+                      "message": "The reported scale factor does not follow from the verified source.",
+                      "evidence": {
+                        "declared_normalization_factor": 9.251780210572279e-8,
+                        "source_cross_section_pb": 0.0019654512871056795,
+                        "source_generated_weight_sum": 213799.953125,
+                        "declared_luminosity_pb_inverse": 10064.0,
+                        "relative_tolerance": 1e-6,
+                        "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                        "implied_normalization_factor": 0.00009251780210572279,
+                        "absolute_gap": 0.00009242528430361706
+                      },
+                      "likely_causes": [
+                        "A different luminosity or cross-section was used than the one declared.",
+                        "The factor reaching the result is not the one the histogram computed."
+                      ],
+                      "suggested_actions": [
+                        "Recompute the factor from the source cross-section, luminosity and weight sum."
+                      ],
+                      "affected_artifacts": [
+                        "yield_estimate"
+                      ],
+                      "run_id": "luminosity_unit_slip-0",
+                      "attempt_id": "attempt-0",
+                      "timestamp": "2026-09-01T00:09:32.309204Z",
+                      "schema_version": "1.0"
+                    }
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:32.309236Z",
+                "duration_ms": 0.074917,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "luminosity_unit_slip-0",
+                "attempt_id": "attempt-0",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "checkpoints": [
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "luminosity_unit_slip-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_load",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.schema.required_branches",
+                        "status": "pass",
+                        "evidence": {
+                          "required_branches": [
+                            "run_number",
+                            "event_number",
+                            "channel_number",
+                            "weight",
+                            "photon_count",
+                            "photon_pt_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_e_gev",
+                            "cross_section_pb",
+                            "generated_weight_sum"
+                          ],
+                          "available_branches": [
+                            "channel_number",
+                            "cross_section_pb",
+                            "event_number",
+                            "generated_weight_sum",
+                            "photon_count",
+                            "photon_e_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_pt_gev",
+                            "run_number",
+                            "weight"
+                          ],
+                          "missing_branches": []
+                        },
+                        "duration_ms": 0.02175,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.finite",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "nonfinite_count": 0,
+                          "sample_indices": []
+                        },
+                        "duration_ms": 7.616125,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.nonzero_support",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "absolute_weight_sum": 99759.4590780139
+                        },
+                        "duration_ms": 9.278,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.diphoton_preselection",
+                        "status": "pass",
+                        "evidence": {
+                          "minimum_photons": 2,
+                          "event_count": 113765,
+                          "observed_photon_count_range": [
+                            2,
+                            4
+                          ],
+                          "insufficient_photon_count": 0,
+                          "insufficient_sample_indices": [],
+                          "length_mismatch_count": 0,
+                          "length_mismatch_sample_indices": [],
+                          "nonfinite_momentum_count": 0,
+                          "nonfinite_sample_indices": [],
+                          "negative_momentum_count": 0,
+                          "negative_sample_indices": []
+                        },
+                        "duration_ms": 77.828542,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.provenance.events_declared",
+                        "status": "pass",
+                        "evidence": {
+                          "declaration_present": true,
+                          "source_type_declared": true,
+                          "synthetic_source_declared": false,
+                          "generator_required": false,
+                          "generator_declared": false
+                        },
+                        "duration_ms": 0.009791,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_identity",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_source_type": "simulation",
+                          "expected_record_id": "atlas-15006",
+                          "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+                          "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+                          "expected_checksum": "adler32:5ac6bca3",
+                          "mismatched_fields": []
+                        },
+                        "duration_ms": 0.003041,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:32.405186Z",
+                    "duration_ms": 95.931292,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "luminosity_unit_slip-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_selection",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.selection.nonempty",
+                        "status": "pass",
+                        "evidence": {
+                          "selection_id": "atlas_gamgam_diphoton",
+                          "selection_stage": "post_selection",
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "minimum_selected": 1
+                        },
+                        "duration_ms": 21.988458,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                        "status": "pass",
+                        "evidence": {
+                          "cut_ids": [
+                            "all_events",
+                            "two_photons",
+                            "leading_photon_pt",
+                            "subleading_photon_pt"
+                          ],
+                          "surviving_counts": [
+                            113765,
+                            113765,
+                            113210,
+                            105503
+                          ],
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "increasing_cuts": [],
+                          "negative_cuts": [],
+                          "first_matches_input": true,
+                          "last_matches_selected": true
+                        },
+                        "duration_ms": 7.029334,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_disjoint",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "region_sizes": [
+                            10768,
+                            94735
+                          ],
+                          "selected_count": 105503,
+                          "overlapping_region_pairs": [],
+                          "overlap_sample_event_ids": [],
+                          "events_outside_selection": 0,
+                          "outside_sample_event_ids": [],
+                          "regions_with_internal_duplicates": []
+                        },
+                        "duration_ms": 14.529708,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_coverage",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "selected_count": 105503,
+                          "covered_count": 105503,
+                          "uncovered_count": 0,
+                          "uncovered_sample_event_ids": [],
+                          "checked_relation": "the union of the declared regions equals the selected events"
+                        },
+                        "duration_ms": 13.118542,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_definition",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_window_gev": [
+                            120.0,
+                            130.0
+                          ],
+                          "expected_signal_count": 94735,
+                          "declared_signal_count": 94735,
+                          "missing_from_signal": 0,
+                          "unexpected_in_signal": 0,
+                          "missing_sample_event_ids": [],
+                          "unexpected_sample_event_ids": [],
+                          "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+                        },
+                        "duration_ms": 18.116542,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.weight_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "selected_count": 105503,
+                          "declared_weight_sum": 91725.38740330935,
+                          "recomputed_weight_sum": 91725.38740330935,
+                          "absolute_gap": 0.0,
+                          "source_weight_abs_min": 0.8768905997276306,
+                          "source_weight_abs_max": 0.8768905997276306,
+                          "source_distinct_weight_count": 2,
+                          "membership_check": "exact membership in the source's distinct weights",
+                          "weights_not_from_source": 0,
+                          "outside_sample_indices": [],
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+                        },
+                        "duration_ms": 40.840083,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_constants",
+                        "status": "pass",
+                        "evidence": {
+                          "artifact": "selection",
+                          "relative_tolerance": 1e-6,
+                          "declared_cross_section_pb": 0.0019654512871056795,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "declared_generated_weight_sum": 213799.953125,
+                          "source_generated_weight_sum": 213799.953125,
+                          "mismatched_constants": []
+                        },
+                        "duration_ms": 0.006292,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:32.524581Z",
+                    "duration_ms": 119.374583,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "luminosity_unit_slip-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_histogram",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": true,
+                    "results": [
+                      {
+                        "contract_id": "hep.atlas_open_data.histogram_closure",
+                        "status": "fail",
+                        "evidence": {
+                          "bin_count": 30,
+                          "edge_count": 31,
+                          "edges_consistent": true,
+                          "binned_weight_total": 91725.38740330935,
+                          "selected_weight_sum": 91725.38740330935,
+                          "weight_absolute_gap": 0.0,
+                          "relative_tolerance": 1e-6,
+                          "declared_normalization_factor": 9.251780210572279e-8,
+                          "recomputed_normalization_factor": 0.00009251780210572279,
+                          "normalization_absolute_gap": 0.00009242528430361706,
+                          "closure_relation": "sum(bin_weight_sums) + underflow + overflow == selected_weight_sum",
+                          "normalization_relation": "cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                          "constants_matching_source": true,
+                          "drifted_constants": []
+                        },
+                        "duration_ms": 0.030208,
+                        "violation": {
+                          "violation_id": "luminosity_unit_slip-0:attempt-0:hep.atlas_open_data.histogram_closure",
+                          "contract_id": "hep.atlas_open_data.histogram_closure",
+                          "severity": "error",
+                          "stage": "post_histogram",
+                          "message": "The histogram does not conserve the selected weight or its declared scale.",
+                          "evidence": {
+                            "bin_count": 30,
+                            "edge_count": 31,
+                            "edges_consistent": true,
+                            "binned_weight_total": 91725.38740330935,
+                            "selected_weight_sum": 91725.38740330935,
+                            "weight_absolute_gap": 0.0,
+                            "relative_tolerance": 1e-6,
+                            "declared_normalization_factor": 9.251780210572279e-8,
+                            "recomputed_normalization_factor": 0.00009251780210572279,
+                            "normalization_absolute_gap": 0.00009242528430361706,
+                            "closure_relation": "sum(bin_weight_sums) + underflow + overflow == selected_weight_sum",
+                            "normalization_relation": "cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                            "constants_matching_source": true,
+                            "drifted_constants": []
+                          },
+                          "likely_causes": [
+                            "A scale factor was applied to the bins without updating the selection totals.",
+                            "Events were dropped or duplicated between selection and binning.",
+                            "A per-file constant was aggregated instead of read once."
+                          ],
+                          "suggested_actions": [
+                            "Recompute the binned weight total and compare it with the selected weight sum.",
+                            "Recompute the normalization factor from cross section, luminosity, and weights."
+                          ],
+                          "affected_artifacts": [
+                            "histogram"
+                          ],
+                          "run_id": "luminosity_unit_slip-0",
+                          "attempt_id": "attempt-0",
+                          "timestamp": "2026-09-01T00:09:32.524623Z",
+                          "schema_version": "1.0"
+                        }
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:32.524641Z",
+                    "duration_ms": 0.037958,
+                    "schema_version": "1.0"
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:32.524647Z",
+                "duration_ms": 215.390708,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            }
+          ]
+        }
+      ],
+      "injection_stage": "post_histogram",
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "overlapping_control_window",
+      "fault_injected": true,
+      "expected_detectable": true,
+      "expected_contract_id": "hep.atlas_open_data.region_disjoint",
+      "expected_stage": "post_selection",
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": true,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "overlapping_control_window-0",
+                "attempt_id": "attempt-0",
+                "stage": "post_yield",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": false,
+                "results": [
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_shape",
+                    "status": "pass",
+                    "evidence": {
+                      "expected_peak_window_gev": [
+                        115.0,
+                        135.0
+                      ],
+                      "peak_bin_center_gev": 125.0,
+                      "peak_in_window": true,
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "has_excess_over_sideband": true,
+                      "all_values_finite": true,
+                      "nonnegative_signal_support": true,
+                      "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                    },
+                    "duration_ms": 0.009958,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_closure",
+                    "status": "pass",
+                    "evidence": {
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "normalization_factor": 0.00009251780210572279,
+                      "reported_yield": 7.472601895023162,
+                      "implied_yield": 7.472601895023162,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                    },
+                    "duration_ms": 0.002625,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.background_estimate",
+                    "status": "pass",
+                    "evidence": {
+                      "reported_background": 1613.6540816187858,
+                      "implied_background": 1613.6540816187858,
+                      "sideband_weight_sum": 8068.270408093929,
+                      "signal_bin_count": 5.0,
+                      "sideband_bin_count": 25.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                    },
+                    "duration_ms": 0.002458,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.normalization_provenance",
+                    "status": "pass",
+                    "evidence": {
+                      "declared_normalization_factor": 0.00009251780210572279,
+                      "source_cross_section_pb": 0.0019654512871056795,
+                      "source_generated_weight_sum": 213799.953125,
+                      "declared_luminosity_pb_inverse": 10064.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                      "implied_normalization_factor": 0.00009251780210572279,
+                      "absolute_gap": 0.0
+                    },
+                    "duration_ms": 0.00675,
+                    "violation": null
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:33.229491Z",
+                "duration_ms": 0.056959,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "overlapping_control_window-0",
+                "attempt_id": "attempt-0",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "checkpoints": [
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "overlapping_control_window-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_load",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.schema.required_branches",
+                        "status": "pass",
+                        "evidence": {
+                          "required_branches": [
+                            "run_number",
+                            "event_number",
+                            "channel_number",
+                            "weight",
+                            "photon_count",
+                            "photon_pt_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_e_gev",
+                            "cross_section_pb",
+                            "generated_weight_sum"
+                          ],
+                          "available_branches": [
+                            "channel_number",
+                            "cross_section_pb",
+                            "event_number",
+                            "generated_weight_sum",
+                            "photon_count",
+                            "photon_e_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_pt_gev",
+                            "run_number",
+                            "weight"
+                          ],
+                          "missing_branches": []
+                        },
+                        "duration_ms": 0.022042,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.finite",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "nonfinite_count": 0,
+                          "sample_indices": []
+                        },
+                        "duration_ms": 7.538208,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.nonzero_support",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "absolute_weight_sum": 99759.4590780139
+                        },
+                        "duration_ms": 9.501791,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.diphoton_preselection",
+                        "status": "pass",
+                        "evidence": {
+                          "minimum_photons": 2,
+                          "event_count": 113765,
+                          "observed_photon_count_range": [
+                            2,
+                            4
+                          ],
+                          "insufficient_photon_count": 0,
+                          "insufficient_sample_indices": [],
+                          "length_mismatch_count": 0,
+                          "length_mismatch_sample_indices": [],
+                          "nonfinite_momentum_count": 0,
+                          "nonfinite_sample_indices": [],
+                          "negative_momentum_count": 0,
+                          "negative_sample_indices": []
+                        },
+                        "duration_ms": 77.92,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.provenance.events_declared",
+                        "status": "pass",
+                        "evidence": {
+                          "declaration_present": true,
+                          "source_type_declared": true,
+                          "synthetic_source_declared": false,
+                          "generator_required": false,
+                          "generator_declared": false
+                        },
+                        "duration_ms": 0.010417,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_identity",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_source_type": "simulation",
+                          "expected_record_id": "atlas-15006",
+                          "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+                          "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+                          "expected_checksum": "adler32:5ac6bca3",
+                          "mismatched_fields": []
+                        },
+                        "duration_ms": 0.003167,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:33.325577Z",
+                    "duration_ms": 96.05725,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "overlapping_control_window-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_selection",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": true,
+                    "results": [
+                      {
+                        "contract_id": "hep.selection.nonempty",
+                        "status": "pass",
+                        "evidence": {
+                          "selection_id": "atlas_gamgam_diphoton",
+                          "selection_stage": "post_selection",
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "minimum_selected": 1
+                        },
+                        "duration_ms": 21.757583,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                        "status": "pass",
+                        "evidence": {
+                          "cut_ids": [
+                            "all_events",
+                            "two_photons",
+                            "leading_photon_pt",
+                            "subleading_photon_pt"
+                          ],
+                          "surviving_counts": [
+                            113765,
+                            113765,
+                            113210,
+                            105503
+                          ],
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "increasing_cuts": [],
+                          "negative_cuts": [],
+                          "first_matches_input": true,
+                          "last_matches_selected": true
+                        },
+                        "duration_ms": 7.125417,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_disjoint",
+                        "status": "fail",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "region_sizes": [
+                            99721,
+                            94735
+                          ],
+                          "selected_count": 105503,
+                          "overlapping_region_pairs": [
+                            "control|signal"
+                          ],
+                          "overlap_sample_event_ids": [
+                            3,
+                            6,
+                            13,
+                            20,
+                            26,
+                            27,
+                            30,
+                            33,
+                            35,
+                            36
+                          ],
+                          "events_outside_selection": 0,
+                          "outside_sample_event_ids": [],
+                          "regions_with_internal_duplicates": []
+                        },
+                        "duration_ms": 24.478041,
+                        "violation": {
+                          "violation_id": "overlapping_control_window-0:attempt-0:hep.atlas_open_data.region_disjoint",
+                          "contract_id": "hep.atlas_open_data.region_disjoint",
+                          "severity": "error",
+                          "stage": "post_selection",
+                          "message": "The declared analysis regions overlap or contain unselected events.",
+                          "evidence": {
+                            "region_names": [
+                              "control",
+                              "signal"
+                            ],
+                            "region_sizes": [
+                              99721,
+                              94735
+                            ],
+                            "selected_count": 105503,
+                            "overlapping_region_pairs": [
+                              "control|signal"
+                            ],
+                            "overlap_sample_event_ids": [
+                              3,
+                              6,
+                              13,
+                              20,
+                              26,
+                              27,
+                              30,
+                              33,
+                              35,
+                              36
+                            ],
+                            "events_outside_selection": 0,
+                            "outside_sample_event_ids": [],
+                            "regions_with_internal_duplicates": []
+                          },
+                          "likely_causes": [
+                            "A region boundary was widened without removing events from the other region.",
+                            "Region membership was rebuilt from a stale selection."
+                          ],
+                          "suggested_actions": [
+                            "Recompute region membership from the current selection and compare the counts."
+                          ],
+                          "affected_artifacts": [
+                            "selection"
+                          ],
+                          "run_id": "overlapping_control_window-0",
+                          "attempt_id": "attempt-0",
+                          "timestamp": "2026-09-01T00:09:33.379090Z",
+                          "schema_version": "1.0"
+                        }
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_coverage",
+                        "status": "fail",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "selected_count": 105503,
+                          "covered_count": 99721,
+                          "uncovered_count": 5782,
+                          "uncovered_sample_event_ids": [
+                            169,
+                            201,
+                            222,
+                            224,
+                            237,
+                            258,
+                            266,
+                            283,
+                            343,
+                            518
+                          ],
+                          "checked_relation": "the union of the declared regions equals the selected events"
+                        },
+                        "duration_ms": 16.916083,
+                        "violation": {
+                          "violation_id": "overlapping_control_window-0:attempt-0:hep.atlas_open_data.region_coverage",
+                          "contract_id": "hep.atlas_open_data.region_coverage",
+                          "severity": "error",
+                          "stage": "post_selection",
+                          "message": "Some selected events belong to no declared analysis region.",
+                          "evidence": {
+                            "region_names": [
+                              "control",
+                              "signal"
+                            ],
+                            "selected_count": 105503,
+                            "covered_count": 99721,
+                            "uncovered_count": 5782,
+                            "uncovered_sample_event_ids": [
+                              169,
+                              201,
+                              222,
+                              224,
+                              237,
+                              258,
+                              266,
+                              283,
+                              343,
+                              518
+                            ],
+                            "checked_relation": "the union of the declared regions equals the selected events"
+                          },
+                          "likely_causes": [
+                            "A region boundary was narrowed without widening the region beside it.",
+                            "A region was defined by its own window rather than as the complement of another."
+                          ],
+                          "suggested_actions": [
+                            "Define the control region as every selected event outside the signal window."
+                          ],
+                          "affected_artifacts": [
+                            "selection"
+                          ],
+                          "run_id": "overlapping_control_window-0",
+                          "attempt_id": "attempt-0",
+                          "timestamp": "2026-09-01T00:09:33.396816Z",
+                          "schema_version": "1.0"
+                        }
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_definition",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_window_gev": [
+                            120.0,
+                            130.0
+                          ],
+                          "expected_signal_count": 94735,
+                          "declared_signal_count": 94735,
+                          "missing_from_signal": 0,
+                          "unexpected_in_signal": 0,
+                          "missing_sample_event_ids": [],
+                          "unexpected_sample_event_ids": [],
+                          "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+                        },
+                        "duration_ms": 20.78725,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.weight_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "selected_count": 105503,
+                          "declared_weight_sum": 91725.38740330935,
+                          "recomputed_weight_sum": 91725.38740330935,
+                          "absolute_gap": 0.0,
+                          "source_weight_abs_min": 0.8768905997276306,
+                          "source_weight_abs_max": 0.8768905997276306,
+                          "source_distinct_weight_count": 2,
+                          "membership_check": "exact membership in the source's distinct weights",
+                          "weights_not_from_source": 0,
+                          "outside_sample_indices": [],
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+                        },
+                        "duration_ms": 40.417834,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_constants",
+                        "status": "pass",
+                        "evidence": {
+                          "artifact": "selection",
+                          "relative_tolerance": 1e-6,
+                          "declared_cross_section_pb": 0.0019654512871056795,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "declared_generated_weight_sum": 213799.953125,
+                          "source_generated_weight_sum": 213799.953125,
+                          "mismatched_constants": []
+                        },
+                        "duration_ms": 0.00525,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:33.461030Z",
+                    "duration_ms": 135.428667,
+                    "schema_version": "1.0"
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:33.461048Z",
+                "duration_ms": 231.526291,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            }
+          ]
+        }
+      ],
+      "injection_stage": "post_selection",
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "stale_cutflow",
+      "fault_injected": true,
+      "expected_detectable": true,
+      "expected_contract_id": "hep.atlas_open_data.cutflow_monotonic",
+      "expected_stage": "post_selection",
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": true,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": true,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "stale_cutflow-0",
+                "attempt_id": "attempt-0",
+                "stage": "post_yield",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": false,
+                "results": [
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_shape",
+                    "status": "pass",
+                    "evidence": {
+                      "expected_peak_window_gev": [
+                        115.0,
+                        135.0
+                      ],
+                      "peak_bin_center_gev": 125.0,
+                      "peak_in_window": true,
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "has_excess_over_sideband": true,
+                      "all_values_finite": true,
+                      "nonnegative_signal_support": true,
+                      "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+                    },
+                    "duration_ms": 0.01175,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.yield_closure",
+                    "status": "pass",
+                    "evidence": {
+                      "signal_weight_sum": 82382.99495381117,
+                      "background_estimate": 1613.6540816187858,
+                      "normalization_factor": 0.00009251780210572279,
+                      "reported_yield": 7.472601895023162,
+                      "implied_yield": 7.472601895023162,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+                    },
+                    "duration_ms": 0.002833,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.background_estimate",
+                    "status": "pass",
+                    "evidence": {
+                      "reported_background": 1613.6540816187858,
+                      "implied_background": 1613.6540816187858,
+                      "sideband_weight_sum": 8068.270408093929,
+                      "signal_bin_count": 5.0,
+                      "sideband_bin_count": 25.0,
+                      "absolute_gap": 0.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+                    },
+                    "duration_ms": 0.0025,
+                    "violation": null
+                  },
+                  {
+                    "contract_id": "hep.atlas_open_data.normalization_provenance",
+                    "status": "pass",
+                    "evidence": {
+                      "declared_normalization_factor": 0.00009251780210572279,
+                      "source_cross_section_pb": 0.0019654512871056795,
+                      "source_generated_weight_sum": 213799.953125,
+                      "declared_luminosity_pb_inverse": 10064.0,
+                      "relative_tolerance": 1e-6,
+                      "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+                      "implied_normalization_factor": 0.00009251780210572279,
+                      "absolute_gap": 0.0
+                    },
+                    "duration_ms": 0.007041,
+                    "violation": null
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:34.166488Z",
+                "duration_ms": 0.063583,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": {
+                "workflow_id": "atlas-agent-experiment",
+                "run_id": "stale_cutflow-0",
+                "attempt_id": "attempt-0",
+                "mode": "enforce",
+                "blocking_severities": [
+                  "error",
+                  "critical"
+                ],
+                "blocked": true,
+                "checkpoints": [
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "stale_cutflow-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_load",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": false,
+                    "results": [
+                      {
+                        "contract_id": "hep.schema.required_branches",
+                        "status": "pass",
+                        "evidence": {
+                          "required_branches": [
+                            "run_number",
+                            "event_number",
+                            "channel_number",
+                            "weight",
+                            "photon_count",
+                            "photon_pt_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_e_gev",
+                            "cross_section_pb",
+                            "generated_weight_sum"
+                          ],
+                          "available_branches": [
+                            "channel_number",
+                            "cross_section_pb",
+                            "event_number",
+                            "generated_weight_sum",
+                            "photon_count",
+                            "photon_e_gev",
+                            "photon_eta",
+                            "photon_phi",
+                            "photon_pt_gev",
+                            "run_number",
+                            "weight"
+                          ],
+                          "missing_branches": []
+                        },
+                        "duration_ms": 0.021166,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.finite",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "nonfinite_count": 0,
+                          "sample_indices": []
+                        },
+                        "duration_ms": 7.721792,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.weights.nonzero_support",
+                        "status": "pass",
+                        "evidence": {
+                          "weight_count": 113765,
+                          "absolute_weight_sum": 99759.4590780139
+                        },
+                        "duration_ms": 10.202625,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.diphoton_preselection",
+                        "status": "pass",
+                        "evidence": {
+                          "minimum_photons": 2,
+                          "event_count": 113765,
+                          "observed_photon_count_range": [
+                            2,
+                            4
+                          ],
+                          "insufficient_photon_count": 0,
+                          "insufficient_sample_indices": [],
+                          "length_mismatch_count": 0,
+                          "length_mismatch_sample_indices": [],
+                          "nonfinite_momentum_count": 0,
+                          "nonfinite_sample_indices": [],
+                          "negative_momentum_count": 0,
+                          "negative_sample_indices": []
+                        },
+                        "duration_ms": 83.625,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.provenance.events_declared",
+                        "status": "pass",
+                        "evidence": {
+                          "declaration_present": true,
+                          "source_type_declared": true,
+                          "synthetic_source_declared": false,
+                          "generator_required": false,
+                          "generator_declared": false
+                        },
+                        "duration_ms": 0.012541,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_identity",
+                        "status": "pass",
+                        "evidence": {
+                          "expected_source_type": "simulation",
+                          "expected_record_id": "atlas-15006",
+                          "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+                          "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+                          "expected_checksum": "adler32:5ac6bca3",
+                          "mismatched_fields": []
+                        },
+                        "duration_ms": 0.003792,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:34.269306Z",
+                    "duration_ms": 102.784084,
+                    "schema_version": "1.0"
+                  },
+                  {
+                    "workflow_id": "atlas-agent-experiment",
+                    "run_id": "stale_cutflow-0",
+                    "attempt_id": "attempt-0",
+                    "stage": "post_selection",
+                    "mode": "enforce",
+                    "blocking_severities": [
+                      "error",
+                      "critical"
+                    ],
+                    "blocked": true,
+                    "results": [
+                      {
+                        "contract_id": "hep.selection.nonempty",
+                        "status": "pass",
+                        "evidence": {
+                          "selection_id": "atlas_gamgam_diphoton",
+                          "selection_stage": "post_selection",
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "minimum_selected": 1
+                        },
+                        "duration_ms": 23.192625,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                        "status": "fail",
+                        "evidence": {
+                          "cut_ids": [
+                            "all_events",
+                            "two_photons",
+                            "leading_photon_pt",
+                            "subleading_photon_pt"
+                          ],
+                          "surviving_counts": [
+                            113765,
+                            113765,
+                            113210,
+                            113210
+                          ],
+                          "input_count": 113765,
+                          "selected_count": 105503,
+                          "increasing_cuts": [],
+                          "negative_cuts": [],
+                          "first_matches_input": true,
+                          "last_matches_selected": false
+                        },
+                        "duration_ms": 8.034584,
+                        "violation": {
+                          "violation_id": "stale_cutflow-0:attempt-0:hep.atlas_open_data.cutflow_monotonic",
+                          "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+                          "severity": "error",
+                          "stage": "post_selection",
+                          "message": "The declared selection cutflow is not consistent with its own endpoints.",
+                          "evidence": {
+                            "cut_ids": [
+                              "all_events",
+                              "two_photons",
+                              "leading_photon_pt",
+                              "subleading_photon_pt"
+                            ],
+                            "surviving_counts": [
+                              113765,
+                              113765,
+                              113210,
+                              113210
+                            ],
+                            "input_count": 113765,
+                            "selected_count": 105503,
+                            "increasing_cuts": [],
+                            "negative_cuts": [],
+                            "first_matches_input": true,
+                            "last_matches_selected": false
+                          },
+                          "likely_causes": [
+                            "A cut was applied out of order or a surviving count was recorded incorrectly.",
+                            "The selected event list was rebuilt without updating the cutflow."
+                          ],
+                          "suggested_actions": [
+                            "Compare each recorded surviving count with the events entering that cut."
+                          ],
+                          "affected_artifacts": [
+                            "selection"
+                          ],
+                          "run_id": "stale_cutflow-0",
+                          "attempt_id": "attempt-0",
+                          "timestamp": "2026-09-01T00:09:34.300663Z",
+                          "schema_version": "1.0"
+                        }
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_disjoint",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "region_sizes": [
+                            10768,
+                            94735
+                          ],
+                          "selected_count": 105503,
+                          "overlapping_region_pairs": [],
+                          "overlap_sample_event_ids": [],
+                          "events_outside_selection": 0,
+                          "outside_sample_event_ids": [],
+                          "regions_with_internal_duplicates": []
+                        },
+                        "duration_ms": 15.071125,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_coverage",
+                        "status": "pass",
+                        "evidence": {
+                          "region_names": [
+                            "control",
+                            "signal"
+                          ],
+                          "selected_count": 105503,
+                          "covered_count": 105503,
+                          "uncovered_count": 0,
+                          "uncovered_sample_event_ids": [],
+                          "checked_relation": "the union of the declared regions equals the selected events"
+                        },
+                        "duration_ms": 13.665334,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.region_definition",
+                        "status": "pass",
+                        "evidence": {
+                          "signal_window_gev": [
+                            120.0,
+                            130.0
+                          ],
+                          "expected_signal_count": 94735,
+                          "declared_signal_count": 94735,
+                          "missing_from_signal": 0,
+                          "unexpected_in_signal": 0,
+                          "missing_sample_event_ids": [],
+                          "unexpected_sample_event_ids": [],
+                          "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+                        },
+                        "duration_ms": 19.048834,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.weight_provenance",
+                        "status": "pass",
+                        "evidence": {
+                          "selected_count": 105503,
+                          "declared_weight_sum": 91725.38740330935,
+                          "recomputed_weight_sum": 91725.38740330935,
+                          "absolute_gap": 0.0,
+                          "source_weight_abs_min": 0.8768905997276306,
+                          "source_weight_abs_max": 0.8768905997276306,
+                          "source_distinct_weight_count": 2,
+                          "membership_check": "exact membership in the source's distinct weights",
+                          "weights_not_from_source": 0,
+                          "outside_sample_indices": [],
+                          "relative_tolerance": 1e-6,
+                          "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+                        },
+                        "duration_ms": 41.931084,
+                        "violation": null
+                      },
+                      {
+                        "contract_id": "hep.atlas_open_data.source_constants",
+                        "status": "pass",
+                        "evidence": {
+                          "artifact": "selection",
+                          "relative_tolerance": 1e-6,
+                          "declared_cross_section_pb": 0.0019654512871056795,
+                          "source_cross_section_pb": 0.0019654512871056795,
+                          "declared_generated_weight_sum": 213799.953125,
+                          "source_generated_weight_sum": 213799.953125,
+                          "mismatched_constants": []
+                        },
+                        "duration_ms": 0.007708,
+                        "violation": null
+                      }
+                    ],
+                    "timestamp": "2026-09-01T00:09:34.394244Z",
+                    "duration_ms": 124.917125,
+                    "schema_version": "1.0"
+                  }
+                ],
+                "timestamp": "2026-09-01T00:09:34.394266Z",
+                "duration_ms": 227.74275,
+                "schema_version": "1.0"
+              },
+              "crashed": false,
+              "crash_type": null
+            }
+          ]
+        }
+      ],
+      "injection_stage": "post_selection",
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "unrunnable",
+      "fault_injected": true,
+      "expected_detectable": false,
+      "expected_contract_id": null,
+      "expected_stage": null,
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "runtime_error"
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "runtime_error"
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "runtime_error"
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "runtime_error"
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "runtime_error"
+            }
+          ]
+        }
+      ],
+      "injection_stage": null,
+      "late_invisible_reason": null
+    },
+    {
+      "case_id": "wrong_output_schema",
+      "fault_injected": true,
+      "expected_detectable": false,
+      "expected_contract_id": null,
+      "expected_stage": null,
+      "repetitions": [
+        {
+          "repetition": 0,
+          "runs": [
+            {
+              "baseline": "unguarded",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "invalid_agent_artifacts"
+            },
+            {
+              "baseline": "generic_data_checks",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "invalid_agent_artifacts"
+            },
+            {
+              "baseline": "llm_judge",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "invalid_agent_artifacts"
+            },
+            {
+              "baseline": "final_check_only",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "invalid_agent_artifacts"
+            },
+            {
+              "baseline": "runtime_guarded",
+              "accepted": false,
+              "trace": null,
+              "crashed": true,
+              "crash_type": "invalid_agent_artifacts"
+            }
+          ]
+        }
+      ],
+      "injection_stage": null,
+      "late_invisible_reason": null
+    }
+  ],
+  "metric_case_ids": [
+    "correct",
+    "empty_selection",
+    "luminosity_unit_slip",
+    "overlapping_control_window",
+    "stale_cutflow"
+  ],
+  "metric_arms": [
+    "unguarded",
+    "generic_data_checks",
+    "llm_judge",
+    "final_check_only",
+    "runtime_guarded"
+  ],
+  "arm_coverage": {
+    "unguarded": {
+      "numerator": 5,
+      "denominator": 5,
+      "value": 1.0
+    },
+    "generic_data_checks": {
+      "numerator": 5,
+      "denominator": 5,
+      "value": 1.0
+    },
+    "llm_judge": {
+      "numerator": 5,
+      "denominator": 5,
+      "value": 1.0
+    },
+    "final_check_only": {
+      "numerator": 5,
+      "denominator": 5,
+      "value": 1.0
+    },
+    "runtime_guarded": {
+      "numerator": 5,
+      "denominator": 5,
+      "value": 1.0
+    }
+  },
+  "metrics": {
+    "by_baseline": {
+      "unguarded": {
+        "detection_recall": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "localization_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "all_fault_false_pass_rate": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "contract_coverage": {
+          "numerator": 0,
+          "denominator": 18,
+          "value": 0.0
+        },
+        "gap_probe_acceptance_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "generic_data_checks": {
+        "detection_recall": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "localization_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "all_fault_false_pass_rate": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "contract_coverage": {
+          "numerator": 0,
+          "denominator": 18,
+          "value": 0.0
+        },
+        "gap_probe_acceptance_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "llm_judge": {
+        "detection_recall": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "localization_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "all_fault_false_pass_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "false_positive_rate": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "contract_coverage": {
+          "numerator": 0,
+          "denominator": 18,
+          "value": 0.0
+        },
+        "gap_probe_acceptance_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "final_check_only": {
+        "detection_recall": {
+          "numerator": 2,
+          "denominator": 4,
+          "value": 0.5
+        },
+        "precision": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "localization_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "all_fault_false_pass_rate": {
+          "numerator": 2,
+          "denominator": 4,
+          "value": 0.5
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "contract_coverage": {
+          "numerator": 0,
+          "denominator": 18,
+          "value": 0.0
+        },
+        "gap_probe_acceptance_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "runtime_guarded": {
+        "detection_recall": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0
+        },
+        "localization_rate": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "all_fault_false_pass_rate": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "contract_coverage": {
+          "numerator": 4,
+          "denominator": 18,
+          "value": 0.2222222222222222
+        },
+        "gap_probe_acceptance_rate": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      }
+    },
+    "final_runtime_agreement": {
+      "numerator": 1,
+      "denominator": 5,
+      "value": 0.2
+    },
+    "runtime_vs_final_divergence": {
+      "numerator": 2,
+      "denominator": 4,
+      "value": 0.5
+    },
+    "checkpoint_attribution": {
+      "unguarded": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "generic_data_checks": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "llm_judge": {
+        "numerator": 0,
+        "denominator": 4,
+        "value": 0.0
+      },
+      "final_check_only": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      },
+      "runtime_guarded": {
+        "numerator": 4,
+        "denominator": 4,
+        "value": 1.0
+      }
+    }
+  },
+  "code_failure_runs": 1,
+  "schema_failure_runs": 1,
+  "sandbox_median_ms": 615.694083,
+  "repair_ablation": [
+    {
+      "case_id": "empty_selection",
+      "feedback_kind": "generic_error",
+      "outcome": "exhausted",
+      "repair_attempts_used": 2,
+      "resolved": false
+    },
+    {
+      "case_id": "empty_selection",
+      "feedback_kind": "structured_report",
+      "outcome": "repaired",
+      "repair_attempts_used": 1,
+      "resolved": true
+    },
+    {
+      "case_id": "luminosity_unit_slip",
+      "feedback_kind": "generic_error",
+      "outcome": "exhausted",
+      "repair_attempts_used": 2,
+      "resolved": false
+    },
+    {
+      "case_id": "luminosity_unit_slip",
+      "feedback_kind": "structured_report",
+      "outcome": "repaired",
+      "repair_attempts_used": 1,
+      "resolved": true
+    },
+    {
+      "case_id": "overlapping_control_window",
+      "feedback_kind": "generic_error",
+      "outcome": "exhausted",
+      "repair_attempts_used": 2,
+      "resolved": false
+    },
+    {
+      "case_id": "overlapping_control_window",
+      "feedback_kind": "structured_report",
+      "outcome": "repaired",
+      "repair_attempts_used": 1,
+      "resolved": true
+    },
+    {
+      "case_id": "stale_cutflow",
+      "feedback_kind": "generic_error",
+      "outcome": "exhausted",
+      "repair_attempts_used": 2,
+      "resolved": false
+    },
+    {
+      "case_id": "stale_cutflow",
+      "feedback_kind": "structured_report",
+      "outcome": "repaired",
+      "repair_attempts_used": 1,
+      "resolved": true
+    }
+  ]
+}

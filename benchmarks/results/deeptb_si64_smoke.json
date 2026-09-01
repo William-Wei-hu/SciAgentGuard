@@ -1,0 +1,83 @@
+{
+  "workflow_id": "deeptb-si64",
+  "run_id": "si64-smoke",
+  "attempt_id": "attempt-0",
+  "mode": "enforce",
+  "blocking_severities": [
+    "error",
+    "critical"
+  ],
+  "blocked": false,
+  "checkpoints": [
+    {
+      "workflow_id": "deeptb-si64",
+      "run_id": "si64-smoke",
+      "attempt_id": "attempt-0",
+      "stage": "post_hamiltonian_load",
+      "mode": "enforce",
+      "blocking_severities": [
+        "error",
+        "critical"
+      ],
+      "blocked": false,
+      "results": [
+        {
+          "contract_id": "materials.hamiltonian.block_hermiticity",
+          "status": "pass",
+          "evidence": {
+            "block_count": 9434,
+            "absolute_tolerance": 1e-6,
+            "missing_inverse_count": 0,
+            "missing_inverse_sample_keys": [],
+            "inconsistent_pair_count": 0,
+            "inconsistent_pair_sample_keys": [],
+            "nonfinite_block_count": 0,
+            "nonfinite_sample_keys": [],
+            "max_conjugate_residual": 0.0
+          },
+          "duration_ms": 59.209292,
+          "violation": null
+        },
+        {
+          "contract_id": "materials.overlap.gamma_positive_definite",
+          "status": "pass",
+          "evidence": {
+            "block_count": 5562,
+            "matrix_dimension": 256,
+            "absolute_tolerance": 1e-6,
+            "nonfinite_value_count": 0,
+            "hermitian_residual": 0.0,
+            "minimum_eigenvalue": 0.17005252949665953,
+            "cholesky_valid": true
+          },
+          "duration_ms": 35.344833,
+          "violation": null
+        },
+        {
+          "contract_id": "materials.deeptb.source_identity",
+          "status": "pass",
+          "evidence": {
+            "expected_repository": "deepmodeling/DeePTB",
+            "expected_commit": "1dcc7f61480c373870cd5bad1d4000ac80757ff5",
+            "expected_license": "LGPL-3.0-or-later",
+            "expected_sample_id": "dptb/tests/data/e3_band/data/Si64.0",
+            "expected_file_names": [
+              "atomic_numbers.dat",
+              "hamiltonians.h5",
+              "overlaps.h5"
+            ],
+            "mismatched_fields": []
+          },
+          "duration_ms": 0.012542,
+          "violation": null
+        }
+      ],
+      "timestamp": "2026-08-30T02:00:09.504649Z",
+      "duration_ms": 577.283708,
+      "schema_version": "1.0"
+    }
+  ],
+  "timestamp": "2026-08-30T02:00:09.504833Z",
+  "duration_ms": 577.321208,
+  "schema_version": "1.0"
+}

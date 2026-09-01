@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "pilot_id": "atlas_agent_6b_pilot",
+  "generated_at": "2026-08-30T23:38:37.346222Z",
+  "provenance": {
+    "source_type": "simulation",
+    "record_id": "atlas-15006",
+    "file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+    "checksum": "adler32:5ac6bca3"
+  },
+  "environment": {
+    "sciagentguard_version": "0.4.0.dev1",
+    "python_version": "3.12.14"
+  },
+  "parameters": {
+    "agent_model": "gemini-3.5-flash-lite",
+    "judge_model": "gemini-3.7-flash",
+    "seeds": "1,2",
+    "max_repair_attempts": 2,
+    "sandbox_timeout_seconds": 300.0,
+    "oracle": "agreement with the repository's own atlas_analysis pipeline",
+    "oracle_relative_tolerance": 1e-6
+  },
+  "arms": [
+    "unguarded",
+    "generic_data_checks",
+    "llm_judge",
+    "final_check_only",
+    "runtime_guarded"
+  ],
+  "runs": [
+    {
+      "seed": 1,
+      "model_id": "gemini-3.5-flash-lite",
+      "provider": "google",
+      "judge_available": false,
+      "prompt_hash": "ead5cfd39befa910a38482f8885a53bb2f3183741664db40d1f0a43dca1521e4",
+      "sampling_parameters": {
+        "temperature": 0.0,
+        "prompt_tokens": 1027,
+        "output_tokens": 2644
+      },
+      "latency_ms": 28523.87437499965,
+      "code_sha256": "f6838efb6a04736a80ecdc6aaf31e948ecf879c9a93ac2b8d6edd83dcc838ef5",
+      "code_lines": 225,
+      "sandbox_outcome": "completed",
+      "sandbox_ms": 615.65225,
+      "produced_artifacts": true,
+      "oracle_agrees": true,
+      "oracle_disagreements": [],
+      "arm_accepted": {
+        "unguarded": true,
+        "generic_data_checks": true,
+        "final_check_only": true,
+        "runtime_guarded": true
+      },
+      "blocked_stage": null,
+      "blocked_contracts": []
+    },
+    {
+      "seed": 2,
+      "model_id": "gemini-3.5-flash-lite",
+      "provider": "google",
+      "judge_available": false,
+      "prompt_hash": "ead5cfd39befa910a38482f8885a53bb2f3183741664db40d1f0a43dca1521e4",
+      "sampling_parameters": {
+        "temperature": 0.0,
+        "prompt_tokens": 1027,
+        "output_tokens": 2809
+      },
+      "latency_ms": 8254.512499999691,
+      "code_sha256": "df6c3c138831daf3bcd5316153107904d1adc4d0c4004415264ee0ba4625a6ab",
+      "code_lines": 249,
+      "sandbox_outcome": "completed",
+      "sandbox_ms": 805.593542,
+      "produced_artifacts": true,
+      "oracle_agrees": true,
+      "oracle_disagreements": [],
+      "arm_accepted": {
+        "unguarded": true,
+        "generic_data_checks": true,
+        "final_check_only": true,
+        "runtime_guarded": true
+      },
+      "blocked_stage": null,
+      "blocked_contracts": []
+    }
+  ],
+  "repairs": [],
+  "total_requests": 5
+}

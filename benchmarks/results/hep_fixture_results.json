@@ -1,0 +1,1021 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "hep_fixture_guarded_detection",
+  "generated_at": "2026-08-29T17:26:33.579666Z",
+  "provenance": {
+    "data_kind": "synthetic",
+    "generator": "sciagentguard.packs.hep.fixtures",
+    "scope": "deterministic fixture evaluation only"
+  },
+  "environment": {
+    "sciagentguard_version": "0.1.0",
+    "python_version": "3.12.14",
+    "python_implementation": "CPython"
+  },
+  "parameters": {
+    "warmup_pairs": 20,
+    "measured_pairs": 200,
+    "timing_order": "paired and alternating",
+    "timing_scope": "valid full workflow only"
+  },
+  "declared_contract_ids": [
+    "hep.schema.required_branches",
+    "hep.weights.finite",
+    "hep.weights.nonzero_support",
+    "hep.kinematics.jet_pt_range",
+    "hep.provenance.events_declared",
+    "hep.selection.nonempty",
+    "hep.splits.disjoint_event_ids",
+    "hep.normalization.yield_consistent"
+  ],
+  "cases": [
+    {
+      "case_id": "none",
+      "fault_injected": false,
+      "expected_contract_id": null,
+      "expected_stage": null,
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": false,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_selection",
+            "outcomes": [
+              {
+                "contract_id": "hep.selection.nonempty",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_split",
+            "outcomes": [
+              {
+                "contract_id": "hep.splits.disjoint_event_ids",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_normalization",
+            "outcomes": [
+              {
+                "contract_id": "hep.normalization.yield_consistent",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "missing_branch",
+      "fault_injected": true,
+      "expected_contract_id": "hep.schema.required_branches",
+      "expected_stage": "post_load",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "fail",
+                "violation_stage": "post_load"
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "not_applicable",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "zero_weights",
+      "fault_injected": true,
+      "expected_contract_id": "hep.weights.nonzero_support",
+      "expected_stage": "post_load",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "fail",
+                "violation_stage": "post_load"
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "nonfinite_weights",
+      "fault_injected": true,
+      "expected_contract_id": "hep.weights.finite",
+      "expected_stage": "post_load",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "fail",
+                "violation_stage": "post_load"
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "not_applicable",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "unit_scale_error",
+      "fault_injected": true,
+      "expected_contract_id": "hep.kinematics.jet_pt_range",
+      "expected_stage": "post_load",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "fail",
+                "violation_stage": "post_load"
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "undeclared_synthetic_data",
+      "fault_injected": true,
+      "expected_contract_id": "hep.provenance.events_declared",
+      "expected_stage": "post_load",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "fail",
+                "violation_stage": "post_load"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "empty_selection",
+      "fault_injected": true,
+      "expected_contract_id": "hep.selection.nonempty",
+      "expected_stage": "post_selection",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_selection",
+            "outcomes": [
+              {
+                "contract_id": "hep.selection.nonempty",
+                "status": "fail",
+                "violation_stage": "post_selection"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "split_leakage",
+      "fault_injected": true,
+      "expected_contract_id": "hep.splits.disjoint_event_ids",
+      "expected_stage": "post_split",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_selection",
+            "outcomes": [
+              {
+                "contract_id": "hep.selection.nonempty",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_split",
+            "outcomes": [
+              {
+                "contract_id": "hep.splits.disjoint_event_ids",
+                "status": "fail",
+                "violation_stage": "post_split"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "wrong_normalization",
+      "fault_injected": true,
+      "expected_contract_id": "hep.normalization.yield_consistent",
+      "expected_stage": "post_normalization",
+      "unguarded": {
+        "completed": true,
+        "completed_stages": [
+          "post_load",
+          "post_selection",
+          "post_split",
+          "post_normalization"
+        ]
+      },
+      "guarded": {
+        "blocked": true,
+        "checkpoints": [
+          {
+            "stage": "post_load",
+            "outcomes": [
+              {
+                "contract_id": "hep.schema.required_branches",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.finite",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.weights.nonzero_support",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.kinematics.jet_pt_range",
+                "status": "pass",
+                "violation_stage": null
+              },
+              {
+                "contract_id": "hep.provenance.events_declared",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_selection",
+            "outcomes": [
+              {
+                "contract_id": "hep.selection.nonempty",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_split",
+            "outcomes": [
+              {
+                "contract_id": "hep.splits.disjoint_event_ids",
+                "status": "pass",
+                "violation_stage": null
+              }
+            ]
+          },
+          {
+            "stage": "post_normalization",
+            "outcomes": [
+              {
+                "contract_id": "hep.normalization.yield_consistent",
+                "status": "fail",
+                "violation_stage": "post_normalization"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "detection_recall": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1.0
+    },
+    "precision": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1.0
+    },
+    "localization_rate": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1.0
+    },
+    "unguarded_false_pass_rate": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1.0
+    },
+    "guarded_false_pass_rate": {
+      "numerator": 0,
+      "denominator": 8,
+      "value": 0.0
+    },
+    "false_positive_rate": {
+      "numerator": 0,
+      "denominator": 1,
+      "value": 0.0
+    },
+    "contract_coverage": {
+      "numerator": 8,
+      "denominator": 8,
+      "value": 1.0
+    }
+  },
+  "timing": {
+    "unit": "milliseconds",
+    "timing_case": "none",
+    "unguarded_samples_ms": [
+      0.008584,
+      0.008834,
+      0.008625,
+      0.009,
+      0.008625,
+      0.008958,
+      0.008584,
+      0.008833,
+      0.008333,
+      0.008875,
+      0.008291,
+      0.008917,
+      0.008292,
+      0.008583,
+      0.008458,
+      0.008708,
+      0.008459,
+      0.008917,
+      0.008333,
+      0.00875,
+      0.00825,
+      0.008875,
+      0.008416,
+      0.009125,
+      0.008791,
+      0.009208,
+      0.008625,
+      0.008833,
+      0.008667,
+      0.009375,
+      0.008833,
+      0.009542,
+      0.008791,
+      0.009458,
+      0.009,
+      0.009,
+      0.008666,
+      0.009459,
+      0.008875,
+      0.009417,
+      0.009,
+      0.010333,
+      0.008791,
+      0.009583,
+      0.008709,
+      0.009458,
+      0.009042,
+      0.009541,
+      0.008917,
+      0.009292,
+      0.008791,
+      0.0095,
+      0.009125,
+      0.009375,
+      0.009167,
+      0.009292,
+      0.008833,
+      0.009042,
+      0.008667,
+      0.009375,
+      0.009042,
+      0.009459,
+      0.008916,
+      0.009375,
+      0.009084,
+      0.009375,
+      0.008667,
+      0.009375,
+      0.009,
+      0.009375,
+      0.008833,
+      0.009291,
+      0.008791,
+      0.009333,
+      0.008459,
+      0.0095,
+      0.009167,
+      0.009458,
+      0.008792,
+      0.009625,
+      0.009,
+      0.009291,
+      0.008542,
+      0.009291,
+      0.011125,
+      0.009208,
+      0.008834,
+      0.009208,
+      0.008833,
+      0.009459,
+      0.008625,
+      0.009667,
+      0.009,
+      0.0095,
+      0.009041,
+      0.011292,
+      0.010041,
+      0.009417,
+      0.008708,
+      0.009333,
+      0.00875,
+      0.009208,
+      0.00875,
+      0.009459,
+      0.008958,
+      0.009209,
+      0.008666,
+      0.009417,
+      0.009125,
+      0.00925,
+      0.008916,
+      0.009542,
+      0.008833,
+      0.009083,
+      0.0085,
+      0.009292,
+      0.008833,
+      0.009292,
+      0.008792,
+      0.009334,
+      0.008792,
+      0.011166,
+      0.009416,
+      0.009875,
+      0.009167,
+      0.010042,
+      0.009042,
+      0.009667,
+      0.008666,
+      0.009583,
+      0.008708,
+      0.009416,
+      0.008792,
+      0.00925,
+      0.008875,
+      0.009209,
+      0.00875,
+      0.009208,
+      0.00875,
+      0.009542,
+      0.008917,
+      0.0095,
+      0.008833,
+      0.009375,
+      0.008791,
+      0.009125,
+      0.008667,
+      0.009333,
+      0.008708,
+      0.009125,
+      0.008834,
+      0.009792,
+      0.009208,
+      0.009375,
+      0.008666,
+      0.009458,
+      0.008875,
+      0.009334,
+      0.008916,
+      0.009416,
+      0.008916,
+      0.009333,
+      0.008875,
+      0.009416,
+      0.008625,
+      0.009583,
+      0.009084,
+      0.009375,
+      0.008958,
+      0.009333,
+      0.00875,
+      0.009459,
+      0.009041,
+      0.009417,
+      0.009167,
+      0.009208,
+      0.008792,
+      0.009083,
+      0.008667,
+      0.009875,
+      0.009,
+      0.009541,
+      0.008917,
+      0.009042,
+      0.0085,
+      0.009167,
+      0.008875,
+      0.009291,
+      0.009042,
+      0.009375,
+      0.008833,
+      0.009209,
+      0.00875,
+      0.009375,
+      0.009,
+      0.009458,
+      0.008833,
+      0.009583,
+      0.008917,
+      0.009083
+    ],
+    "guarded_samples_ms": [
+      0.05525,
+      0.05225,
+      0.051667,
+      0.0525,
+      0.053167,
+      0.052208,
+      0.052083,
+      0.052292,
+      0.05125,
+      0.051291,
+      0.051208,
+      0.051708,
+      0.051416,
+      0.051042,
+      0.051166,
+      0.050584,
+      0.050959,
+      0.051833,
+      0.050958,
+      0.051584,
+      0.051959,
+      0.051041,
+      0.051458,
+      0.052583,
+      0.052417,
+      0.054833,
+      0.052,
+      0.051375,
+      0.053083,
+      0.053667,
+      0.05475,
+      0.054084,
+      0.055,
+      0.054625,
+      0.052959,
+      0.051583,
+      0.052416,
+      0.052333,
+      0.056125,
+      0.057125,
+      0.053792,
+      0.053625,
+      0.062375,
+      0.054375,
+      0.053917,
+      0.05375,
+      0.054375,
+      0.053291,
+      0.053,
+      0.052959,
+      0.052208,
+      0.052416,
+      0.052916,
+      0.05375,
+      0.0535,
+      0.052625,
+      0.052667,
+      0.053125,
+      0.052167,
+      0.05175,
+      0.053292,
+      0.053125,
+      0.053291,
+      0.053083,
+      0.053209,
+      0.053083,
+      0.052334,
+      0.051917,
+      0.053541,
+      0.05325,
+      0.052791,
+      0.052667,
+      0.053375,
+      0.052791,
+      0.05125,
+      0.052833,
+      0.053833,
+      0.053,
+      0.05275,
+      0.052458,
+      0.053625,
+      0.052542,
+      0.051709,
+      0.052041,
+      0.054,
+      0.052583,
+      0.052292,
+      0.052375,
+      0.055708,
+      0.058125,
+      0.052041,
+      0.053334,
+      0.054166,
+      0.053375,
+      0.058125,
+      0.053542,
+      0.053,
+      0.05225,
+      0.051,
+      0.052416,
+      0.052791,
+      0.052167,
+      0.053667,
+      0.052625,
+      0.052959,
+      0.053208,
+      0.052042,
+      0.05275,
+      0.053042,
+      0.052542,
+      0.060708,
+      0.05325,
+      0.052916,
+      0.052959,
+      0.052291,
+      0.053125,
+      0.054541,
+      0.0535,
+      0.052917,
+      0.0525,
+      0.113084,
+      0.074209,
+      0.062125,
+      0.059417,
+      0.057334,
+      0.058291,
+      0.056792,
+      0.056083,
+      0.053375,
+      0.053125,
+      0.053333,
+      0.053708,
+      0.052541,
+      0.052792,
+      0.053,
+      0.052667,
+      0.054083,
+      0.052209,
+      0.053083,
+      0.053375,
+      0.052917,
+      0.052833,
+      0.053375,
+      0.055041,
+      0.054791,
+      0.053458,
+      0.053042,
+      0.054709,
+      0.0555,
+      0.052875,
+      0.0525,
+      0.052917,
+      0.057083,
+      0.053167,
+      0.052208,
+      0.052209,
+      0.052792,
+      0.052208,
+      0.052292,
+      0.054375,
+      0.054041,
+      0.053709,
+      0.05275,
+      0.05275,
+      0.051833,
+      0.053917,
+      0.053167,
+      0.053333,
+      0.052792,
+      0.052667,
+      0.05225,
+      0.053166,
+      0.05375,
+      0.053458,
+      0.054125,
+      0.053625,
+      0.052084,
+      0.052125,
+      0.060334,
+      0.055166,
+      0.054292,
+      0.053875,
+      0.0535,
+      0.052875,
+      0.051541,
+      0.051833,
+      0.053833,
+      0.055459,
+      0.054584,
+      0.054042,
+      0.053459,
+      0.053208,
+      0.051667,
+      0.053083,
+      0.053,
+      0.05375,
+      0.05375,
+      0.053166,
+      0.053625,
+      0.053
+    ],
+    "unguarded_median_ms": 0.009042,
+    "guarded_median_ms": 0.053021,
+    "overhead_ratio": 5.863857553638575
+  }
+}

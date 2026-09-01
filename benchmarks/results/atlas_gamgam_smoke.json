@@ -1,0 +1,411 @@
+{
+  "workflow_id": "atlas-gamgam-open-data",
+  "run_id": "wph125-smoke",
+  "attempt_id": "attempt-0",
+  "mode": "enforce",
+  "blocking_severities": [
+    "error",
+    "critical"
+  ],
+  "blocked": false,
+  "checkpoints": [
+    {
+      "workflow_id": "atlas-gamgam-open-data",
+      "run_id": "wph125-smoke",
+      "attempt_id": "attempt-0",
+      "stage": "post_load",
+      "mode": "enforce",
+      "blocking_severities": [
+        "error",
+        "critical"
+      ],
+      "blocked": false,
+      "results": [
+        {
+          "contract_id": "hep.schema.required_branches",
+          "status": "pass",
+          "evidence": {
+            "required_branches": [
+              "run_number",
+              "event_number",
+              "channel_number",
+              "weight",
+              "photon_count",
+              "photon_pt_gev",
+              "photon_eta",
+              "photon_phi",
+              "photon_e_gev",
+              "cross_section_pb",
+              "generated_weight_sum"
+            ],
+            "available_branches": [
+              "channel_number",
+              "cross_section_pb",
+              "event_number",
+              "generated_weight_sum",
+              "photon_count",
+              "photon_e_gev",
+              "photon_eta",
+              "photon_phi",
+              "photon_pt_gev",
+              "run_number",
+              "weight"
+            ],
+            "missing_branches": []
+          },
+          "duration_ms": 0.0145,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.weights.finite",
+          "status": "pass",
+          "evidence": {
+            "weight_count": 113765,
+            "nonfinite_count": 0,
+            "sample_indices": []
+          },
+          "duration_ms": 7.504709,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.weights.nonzero_support",
+          "status": "pass",
+          "evidence": {
+            "weight_count": 113765,
+            "absolute_weight_sum": 99759.4590780139
+          },
+          "duration_ms": 9.420792,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.diphoton_preselection",
+          "status": "pass",
+          "evidence": {
+            "minimum_photons": 2,
+            "event_count": 113765,
+            "observed_photon_count_range": [
+              2,
+              4
+            ],
+            "insufficient_photon_count": 0,
+            "insufficient_sample_indices": [],
+            "length_mismatch_count": 0,
+            "length_mismatch_sample_indices": [],
+            "nonfinite_momentum_count": 0,
+            "nonfinite_sample_indices": [],
+            "negative_momentum_count": 0,
+            "negative_sample_indices": []
+          },
+          "duration_ms": 75.487167,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.provenance.events_declared",
+          "status": "pass",
+          "evidence": {
+            "declaration_present": true,
+            "source_type_declared": true,
+            "synthetic_source_declared": false,
+            "generator_required": false,
+            "generator_declared": false
+          },
+          "duration_ms": 0.004709,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.source_identity",
+          "status": "pass",
+          "evidence": {
+            "expected_source_type": "simulation",
+            "expected_record_id": "atlas-15006",
+            "expected_doi": "10.7483/OPENDATA.ATLAS.B5BJ.3SGS",
+            "expected_file_name": "mc_345318.WpH125J_Wincl_gamgam.GamGam.root",
+            "expected_checksum": "adler32:5ac6bca3",
+            "mismatched_fields": []
+          },
+          "duration_ms": 0.003459,
+          "violation": null
+        }
+      ],
+      "timestamp": "2026-09-01T00:09:29.137064Z",
+      "duration_ms": 591.909125,
+      "schema_version": "1.0"
+    },
+    {
+      "workflow_id": "atlas-gamgam-open-data",
+      "run_id": "wph125-smoke",
+      "attempt_id": "attempt-0",
+      "stage": "post_selection",
+      "mode": "enforce",
+      "blocking_severities": [
+        "error",
+        "critical"
+      ],
+      "blocked": false,
+      "results": [
+        {
+          "contract_id": "hep.selection.nonempty",
+          "status": "pass",
+          "evidence": {
+            "selection_id": "atlas_gamgam_diphoton",
+            "selection_stage": "post_selection",
+            "input_count": 113765,
+            "selected_count": 105503,
+            "minimum_selected": 1
+          },
+          "duration_ms": 21.450792,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.cutflow_monotonic",
+          "status": "pass",
+          "evidence": {
+            "cut_ids": [
+              "all_events",
+              "two_photons",
+              "leading_photon_pt",
+              "subleading_photon_pt"
+            ],
+            "surviving_counts": [
+              113765,
+              113765,
+              113210,
+              105503
+            ],
+            "input_count": 113765,
+            "selected_count": 105503,
+            "increasing_cuts": [],
+            "negative_cuts": [],
+            "first_matches_input": true,
+            "last_matches_selected": true
+          },
+          "duration_ms": 7.071708,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.region_disjoint",
+          "status": "pass",
+          "evidence": {
+            "region_names": [
+              "control",
+              "signal"
+            ],
+            "region_sizes": [
+              10768,
+              94735
+            ],
+            "selected_count": 105503,
+            "overlapping_region_pairs": [],
+            "overlap_sample_event_ids": [],
+            "events_outside_selection": 0,
+            "outside_sample_event_ids": [],
+            "regions_with_internal_duplicates": []
+          },
+          "duration_ms": 13.996208,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.region_coverage",
+          "status": "pass",
+          "evidence": {
+            "region_names": [
+              "control",
+              "signal"
+            ],
+            "selected_count": 105503,
+            "covered_count": 105503,
+            "uncovered_count": 0,
+            "uncovered_sample_event_ids": [],
+            "checked_relation": "the union of the declared regions equals the selected events"
+          },
+          "duration_ms": 12.5505,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.region_definition",
+          "status": "pass",
+          "evidence": {
+            "signal_window_gev": [
+              120.0,
+              130.0
+            ],
+            "expected_signal_count": 94735,
+            "declared_signal_count": 94735,
+            "missing_from_signal": 0,
+            "unexpected_in_signal": 0,
+            "missing_sample_event_ids": [],
+            "unexpected_sample_event_ids": [],
+            "checked_relation": "the signal region equals the selected events whose mass lies in the window"
+          },
+          "duration_ms": 17.262667,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.weight_provenance",
+          "status": "pass",
+          "evidence": {
+            "selected_count": 105503,
+            "declared_weight_sum": 91725.38740330935,
+            "recomputed_weight_sum": 91725.38740330935,
+            "absolute_gap": 0.0,
+            "source_weight_abs_min": 0.8768905997276306,
+            "source_weight_abs_max": 0.8768905997276306,
+            "source_distinct_weight_count": 2,
+            "membership_check": "exact membership in the source's distinct weights",
+            "weights_not_from_source": 0,
+            "outside_sample_indices": [],
+            "relative_tolerance": 1e-6,
+            "checked_relation": "selected_weight_sum == sum(selected_weight), and every selected weight is one the source actually contains"
+          },
+          "duration_ms": 39.965833,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.source_constants",
+          "status": "pass",
+          "evidence": {
+            "artifact": "selection",
+            "relative_tolerance": 1e-6,
+            "declared_cross_section_pb": 0.0019654512871056795,
+            "source_cross_section_pb": 0.0019654512871056795,
+            "declared_generated_weight_sum": 213799.953125,
+            "source_generated_weight_sum": 213799.953125,
+            "mismatched_constants": []
+          },
+          "duration_ms": 0.006583,
+          "violation": null
+        }
+      ],
+      "timestamp": "2026-09-01T00:09:29.508004Z",
+      "duration_ms": 370.768458,
+      "schema_version": "1.0"
+    },
+    {
+      "workflow_id": "atlas-gamgam-open-data",
+      "run_id": "wph125-smoke",
+      "attempt_id": "attempt-0",
+      "stage": "post_histogram",
+      "mode": "enforce",
+      "blocking_severities": [
+        "error",
+        "critical"
+      ],
+      "blocked": false,
+      "results": [
+        {
+          "contract_id": "hep.atlas_open_data.histogram_closure",
+          "status": "pass",
+          "evidence": {
+            "bin_count": 30,
+            "edge_count": 31,
+            "edges_consistent": true,
+            "binned_weight_total": 91725.38740330935,
+            "selected_weight_sum": 91725.38740330935,
+            "weight_absolute_gap": 0.0,
+            "relative_tolerance": 1e-6,
+            "declared_normalization_factor": 0.00009251780210572279,
+            "recomputed_normalization_factor": 0.00009251780210572279,
+            "normalization_absolute_gap": 0.0,
+            "closure_relation": "sum(bin_weight_sums) + underflow + overflow == selected_weight_sum",
+            "normalization_relation": "cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+            "constants_matching_source": true,
+            "drifted_constants": []
+          },
+          "duration_ms": 0.0135,
+          "violation": null
+        }
+      ],
+      "timestamp": "2026-09-01T00:09:29.537166Z",
+      "duration_ms": 20.724791,
+      "schema_version": "1.0"
+    },
+    {
+      "workflow_id": "atlas-gamgam-open-data",
+      "run_id": "wph125-smoke",
+      "attempt_id": "attempt-0",
+      "stage": "post_yield",
+      "mode": "enforce",
+      "blocking_severities": [
+        "error",
+        "critical"
+      ],
+      "blocked": false,
+      "results": [
+        {
+          "contract_id": "hep.atlas_open_data.yield_shape",
+          "status": "pass",
+          "evidence": {
+            "expected_peak_window_gev": [
+              115.0,
+              135.0
+            ],
+            "peak_bin_center_gev": 125.0,
+            "peak_in_window": true,
+            "signal_weight_sum": 82382.99495381117,
+            "background_estimate": 1613.6540816187858,
+            "has_excess_over_sideband": true,
+            "all_values_finite": true,
+            "nonnegative_signal_support": true,
+            "scale_invariance_note": "these checks are invariant under a constant rescaling of the histogram"
+          },
+          "duration_ms": 0.004458,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.yield_closure",
+          "status": "pass",
+          "evidence": {
+            "signal_weight_sum": 82382.99495381117,
+            "background_estimate": 1613.6540816187858,
+            "normalization_factor": 0.00009251780210572279,
+            "reported_yield": 7.472601895023162,
+            "implied_yield": 7.472601895023162,
+            "absolute_gap": 0.0,
+            "relative_tolerance": 1e-6,
+            "checked_relation": "estimated_yield == (signal_weight_sum - background_estimate) * normalization_factor"
+          },
+          "duration_ms": 0.001833,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.background_estimate",
+          "status": "pass",
+          "evidence": {
+            "reported_background": 1613.6540816187858,
+            "implied_background": 1613.6540816187858,
+            "sideband_weight_sum": 8068.270408093929,
+            "signal_bin_count": 5.0,
+            "sideband_bin_count": 25.0,
+            "absolute_gap": 0.0,
+            "relative_tolerance": 1e-6,
+            "checked_relation": "background_estimate == sideband_weight_sum * signal_bin_count / sideband_bin_count"
+          },
+          "duration_ms": 0.002042,
+          "violation": null
+        },
+        {
+          "contract_id": "hep.atlas_open_data.normalization_provenance",
+          "status": "pass",
+          "evidence": {
+            "declared_normalization_factor": 0.00009251780210572279,
+            "source_cross_section_pb": 0.0019654512871056795,
+            "source_generated_weight_sum": 213799.953125,
+            "declared_luminosity_pb_inverse": 10064.0,
+            "relative_tolerance": 1e-6,
+            "checked_relation": "normalization_factor == cross_section_pb * luminosity_pb_inverse / generated_weight_sum",
+            "implied_normalization_factor": 0.00009251780210572279,
+            "absolute_gap": 0.0
+          },
+          "duration_ms": 0.002791,
+          "violation": null
+        }
+      ],
+      "timestamp": "2026-09-01T00:09:29.538507Z",
+      "duration_ms": 0.051667,
+      "schema_version": "1.0"
+    }
+  ],
+  "timestamp": "2026-09-01T00:09:29.538516Z",
+  "duration_ms": 993.222167,
+  "schema_version": "1.0"
+}

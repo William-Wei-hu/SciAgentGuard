@@ -1,0 +1,62 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.14"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+      - name: Install locked dependencies
+        run: uv sync --locked --extra dev --extra hep --extra materials
+      - name: Run unit tests
+        run: uv run --locked pytest
+
+  quality:
+    name: Quality and distribution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.12"
+      - name: Install locked dependencies
+        run: uv sync --locked --extra dev --extra hep --extra materials
+      - name: Verify lockfile
+        run: uv lock --check
+      - name: Lint
+        run: uv run --locked ruff check .
+      - name: Check formatting
+        run: uv run --locked ruff format --check .
+      - name: Type check
+        run: uv run --locked mypy
+      - name: Build wheel and source distribution
+        run: uv build --no-sources
+      - name: Smoke-test the built wheel
+        run: |
+          uv venv .wheel-smoke --python 3.12
+          uv pip install --python .wheel-smoke/bin/python dist/*.whl
+          .wheel-smoke/bin/python -c "from sciagentguard.adapters import DeePTBSi64Adapter; from sciagentguard.packs.hep import AtlasPhotonCountMismatchInjector, SyntheticHEPWorkflow; from sciagentguard.packs.materials import HamiltonianBlockHermiticityContract; from sciagentguard.runtime import GuardedWorkflowRunner, RepairRunner; import sciagentguard; print(sciagentguard.__version__, DeePTBSi64Adapter, HamiltonianBlockHermiticityContract, AtlasPhotonCountMismatchInjector, SyntheticHEPWorkflow, GuardedWorkflowRunner, RepairRunner)"
+          for wheel in dist/*.whl; do uv pip install --python .wheel-smoke/bin/python "${wheel}[hep]"; done
+          .wheel-smoke/bin/python -c "from sciagentguard.adapters import AtlasGamGamOpenDataAdapter, AtlasGamGamSource; print(AtlasGamGamOpenDataAdapter, AtlasGamGamSource)"
+          for wheel in dist/*.whl; do uv pip install --python .wheel-smoke/bin/python "${wheel}[materials]"; done
+          .wheel-smoke/bin/python -c "import h5py, numpy; from sciagentguard.adapters import DeePTBSi64Adapter, DeePTBSi64Source; print(DeePTBSi64Adapter, DeePTBSi64Source, h5py.__version__, numpy.__version__)"
